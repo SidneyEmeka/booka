@@ -1,4 +1,6 @@
 
+import 'package:booka/auths/log_in.dart';
+import 'package:booka/auths/sign_up.dart';
 import 'package:booka/reusables/mybutton.dart';
 import 'package:booka/reusables/onboarding_cards.dart';
 import 'package:flutter/material.dart';
@@ -33,13 +35,13 @@ class _OnboardingState extends State<Onboarding> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Align(
-              alignment: Alignment(1, 0),//like in a graph sheet
+              alignment: const Alignment(1, 0),//like in a graph sheet
               child: Text(
                   'Skip',
                   style: Stylings.bodyMediumLargest
               ),
             ),
-            Spacer(),
+            const Spacer(),
             //pageview
             SizedBox(
               height: Get.height*0.5,
@@ -60,31 +62,31 @@ class _OnboardingState extends State<Onboarding> {
                 ],
               ),
             ),
-            Spacer(),
+            const Spacer(),
             //dot indicator
             Align(
-              alignment: Alignment(0, 0),
+              alignment: const Alignment(0, 0),
               child: SmoothPageIndicator(controller: _controller, count: 3,
                 effect: ExpandingDotsEffect(
-                  spacing: 4,radius: 5,activeDotColor: Stylings.priGreen,
+                  spacing: 4,radius: 5,activeDotColor: Stylings.accentBlue,
                   dotHeight: 5,dotWidth: 11,
-                  dotColor: Stylings.priGray,
+                  dotColor: Colors.white,
                 expansionFactor: 2,
               ),),
             ),
-            Spacer(),
+            const Spacer(),
            Container(
-             margin: EdgeInsets.symmetric(horizontal: 15),
+             margin: const EdgeInsets.symmetric(horizontal: 15),
              child: Column(
                mainAxisAlignment: MainAxisAlignment.start,
                mainAxisSize: MainAxisSize.min,
                children: [
-                 Mybutton(bText: "Register", bColor: Stylings.priYellow),
-                 Mybutton(bText: "Login", bColor: Stylings.priYellow),
+                 Mybutton(bText: "Sign Up", diffColor: false, toDo: () {   Get.to(()=>const SignUpPage());},),
+                 Mybutton(bText: "Log in", diffColor: false, toDo: () {   Get.to(()=>LogIn()); },),
                ],
              ),
            ),
-            Spacer(),
+            const Spacer(),
           ],
         ),
       )),

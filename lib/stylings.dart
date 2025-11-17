@@ -5,62 +5,91 @@ import 'package:get/get_core/src/get_main.dart';
 
 class Stylings {
   ///Colors
-static Color priYellow = Color(0xFFF39C11);
-static Color priGreen = Color(0xFF2DCC70);
-static Color priBlue = Color(0xFF34495E);
-static Color priGray = Color(0xFFE0E0E0);
+static Color priYellow = const Color(0xFFF39C11);
+static Color priGreen = const Color(0xFF2DCC70);
+
+///NEW
+static Color bgColor = const Color(0xFF081831);
+static Color accentBlue = const Color(0xFF00C6FF);
+static Color transparent = Colors.white.withOpacity(0.1);
 
 
 /// FONT STYLES
-  static TextStyle displayBold = TextStyle(
+  static TextStyle displayBold = const TextStyle(
     fontFamily: 'Nunito',
       fontSize: 51,
       fontWeight: FontWeight.w700,
-    color: Stylings.priBlue
+    color: Colors.white
   );
 
-static TextStyle displayBoldSmall = TextStyle(
+static TextStyle displayBoldMedium = const TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 23,
+    fontWeight: FontWeight.w600,
+    color: Colors.white
+);
+
+static TextStyle displayBoldSmall = const TextStyle(
     fontFamily: 'Nunito',
     fontSize: 15,
     fontWeight: FontWeight.w700,
-    color: Stylings.priBlue
+  color: Colors.white
 );
 
-  static TextStyle bodyMediumLargest = TextStyle(
+  static TextStyle bodyMediumLargest = const TextStyle(
       fontFamily: 'Nunito',
       fontSize: 20,
       fontWeight: FontWeight.w500,
-    color: Stylings.priBlue
+    color: Colors.white
   );
 
-static TextStyle bodyMediumLarge = TextStyle(
+static TextStyle bodyMediumLarge = const TextStyle(
     fontFamily: 'Nunito',
     fontSize: 14,
     fontWeight: FontWeight.w500,
-    color: Stylings.priBlue
+  color: Colors.white
 );
 
-static TextStyle bodyRegular = TextStyle(
+static TextStyle bodyRegular = const TextStyle(
     fontFamily: 'Nunito',
     fontSize: 12,
     fontWeight: FontWeight.w400,
-    color: Stylings.priBlue
+  color: Colors.white
 );
 
-static TextStyle bodyRegularLarge = TextStyle(
+static TextStyle bodyRegularSmall = const TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 13,
+    fontWeight: FontWeight.w400,
+    color: Colors.white
+);
+
+static TextStyle bodyRegularLarge = const TextStyle(
     fontFamily: 'Nunito',
     fontSize: 14,
     fontWeight: FontWeight.w400,
-    color: Stylings.priBlue
+  color: Colors.white
 );
 
-static TextStyle bodyRegularLargest = TextStyle(
+static TextStyle bodyRegularMedium = const TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: Colors.white
+);
+
+static TextStyle bodyRegularLargest = const TextStyle(
     fontFamily: 'Nunito',
     fontSize: 18,
     fontWeight: FontWeight.w400,
-    color: Stylings.priBlue
+  color: Colors.white
 );
 
-
+static TextStyle buttonTexts = const TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 13,
+    fontWeight: FontWeight.w400,
+    color: Colors.white
+);
 
 }
