@@ -81,8 +81,8 @@ class _OnboardingState extends State<Onboarding> {
                mainAxisAlignment: MainAxisAlignment.start,
                mainAxisSize: MainAxisSize.min,
                children: [
-                 Mybutton(bText: "Sign Up", diffColor: false, toDo: () {   Get.to(()=>const SignUpPage());},),
-                 Mybutton(bText: "Log in", diffColor: false, toDo: () {   Get.to(()=>LogIn()); },),
+                 Mybutton(bText: "Sign Up", diffColor: false, toDo: () { Get.to(()=>const SignUpPage());},),
+                 Mybutton(bText: "Log in", diffColor: false, toDo: () { Get.to(()=>LogIn()); },),
                ],
              ),
            ),

@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
 
 class MainControoller extends GetxController{
- @override
-  void onInit() {
-    print("CONT INIT");
+
+  var navIndex = 0.obs;
+  onTapNavItem(int tappedIndex) {
+    navIndex.value = tappedIndex;
   }
 }

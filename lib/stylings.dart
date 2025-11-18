@@ -15,6 +15,14 @@ static Color transparent = Colors.white.withOpacity(0.1);
 
 
 /// FONT STYLES
+static TextStyle displayBoldest = const TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 10,
+    fontWeight: FontWeight.w800,
+    color: Colors.white
+);
+
+
   static TextStyle displayBold = const TextStyle(
     fontFamily: 'Nunito',
       fontSize: 51,
@@ -22,19 +30,37 @@ static Color transparent = Colors.white.withOpacity(0.1);
     color: Colors.white
   );
 
-static TextStyle displayBoldMedium = const TextStyle(
-    fontFamily: 'Nunito',
-    fontSize: 23,
-    fontWeight: FontWeight.w600,
-    color: Colors.white
-);
-
 static TextStyle displayBoldSmall = const TextStyle(
     fontFamily: 'Nunito',
     fontSize: 15,
     fontWeight: FontWeight.w700,
   color: Colors.white
 );
+
+
+
+
+
+
+
+static TextStyle displaySemiBoldMedium = const TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 23,
+    fontWeight: FontWeight.w600,
+    color: Colors.white
+);
+
+static TextStyle displaySemiBoldSmall = const TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 15,
+    fontWeight: FontWeight.w600,
+    color: Colors.white
+);
+
+
+
+
+
 
   static TextStyle bodyMediumLargest = const TextStyle(
       fontFamily: 'Nunito',
@@ -50,11 +76,31 @@ static TextStyle bodyMediumLarge = const TextStyle(
   color: Colors.white
 );
 
+static TextStyle bodyMediumLarger = const TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  color: Colors.white
+);
+
+
+
+
+
+
+
 static TextStyle bodyRegular = const TextStyle(
     fontFamily: 'Nunito',
     fontSize: 12,
     fontWeight: FontWeight.w400,
   color: Colors.white
+);
+
+static TextStyle bodyRegularSmallest = const TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 10,
+    fontWeight: FontWeight.w400,
+    color: Colors.white
 );
 
 static TextStyle bodyRegularSmall = const TextStyle(

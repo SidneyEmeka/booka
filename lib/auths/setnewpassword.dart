@@ -44,7 +44,7 @@ class Setnewpassword extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: Text(
                       'Forgot your password?',
-                      style: Stylings.displayBoldMedium.copyWith(color: Stylings.accentBlue),
+                      style: Stylings.displaySemiBoldMedium.copyWith(color: Stylings.accentBlue),
                       textAlign: TextAlign.center,
                     ),
                   ),
