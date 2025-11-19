@@ -15,9 +15,16 @@ static Color transparent = Colors.white.withOpacity(0.1);
 
 
 /// FONT STYLES
-static TextStyle displayBoldest = const TextStyle(
+static TextStyle displayExtraBoldSmall = const TextStyle(
     fontFamily: 'Nunito',
     fontSize: 10,
+    fontWeight: FontWeight.w800,
+    color: Colors.white
+);
+
+static TextStyle displayExtraBoldMedium = const TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 23,
     fontWeight: FontWeight.w800,
     color: Colors.white
 );
@@ -29,6 +36,14 @@ static TextStyle displayBoldest = const TextStyle(
       fontWeight: FontWeight.w700,
     color: Colors.white
   );
+
+static TextStyle displayBoldMedium = const TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    color: Colors.white
+);
+
 
 static TextStyle displayBoldSmall = const TextStyle(
     fontFamily: 'Nunito',
