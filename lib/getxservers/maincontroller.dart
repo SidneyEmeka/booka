@@ -6,4 +6,9 @@ class MainControoller extends GetxController{
   onTapNavItem(int tappedIndex) {
     navIndex.value = tappedIndex;
   }
+
+  RxMap<String, dynamic> userNotificationPreferences =
+  RxMap({"email": true, "sms": true, });
+
+  ///END
 }

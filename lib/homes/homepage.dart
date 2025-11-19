@@ -1,7 +1,9 @@
 import 'package:booka/getxservers/maincontroller.dart';
+import 'package:booka/homes/profile/profile.dart';
 import 'package:booka/reusables/bookcard.dart';
 import 'package:booka/reusables/booktile.dart';
 import 'package:booka/reusables/menucard.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -73,7 +75,7 @@ class Homepage extends StatelessWidget {
           child: Container(
             width: Get.width,
             height: Get.height,
-            padding: EdgeInsets.symmetric(horizontal: 15,vertical: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 30),
             child: ListView(
               children: [
                 Row(
@@ -116,17 +118,21 @@ class Homepage extends StatelessWidget {
                 ),
 
                 SizedBox(
-                  height: Get.height*0.8,
+                  height: Get.height,
                   child:GridView.count(
                     crossAxisCount: 2,
                     crossAxisSpacing: 15,
                     children: [
-                      Menucard(title: "Browse Books", icon: Icons.search, color: Color(0xFF287CF6)),
-                      Menucard(title: "My Orders", icon: Icons.shopping_cart_outlined, color: Color(0xFF287CF6)),
-                      Menucard(title: "Time Slots", icon: Icons.access_time, color: Color(0xFF47C8E5)),
-                      Menucard(title: "Pick-Up/Delivery", icon: Icons.delivery_dining_outlined, color: Color(0xFF47C8E5)),
-                      Menucard(title: "Loyalty & Referrals", icon: Icons.star, color: Color(0xFF47C8E5)),
-                      Menucard(title: "Profile", icon: Icons.person, color: Color(0xFF287CF6)),
+                      const Menucard(title: "Browse Books", icon: Icons.search, color: Color(0xFF287CF6)),
+                      const Menucard(title: "My Orders", icon: Icons.shopping_cart_outlined, color: Color(0xFF287CF6)),
+                      const Menucard(title: "Time Slots", icon: Icons.access_time, color: Color(0xFF47C8E5)),
+                      const Menucard(title: "Pick-Up/Delivery", icon: Icons.delivery_dining_outlined, color: Color(0xFF47C8E5)),
+                      const Menucard(title: "Loyalty & Referrals", icon: Icons.star, color: Color(0xFF47C8E5)),
+                      GestureDetector(
+                          onTap: (){
+                            Get.to(()=>const Profile());
+                          },
+                          child: const Menucard(title: "Profile", icon: Icons.person, color: Color(0xFF287CF6))),
                     ],
                   )
                 )
@@ -178,9 +184,9 @@ class Homepage extends StatelessWidget {
                  ),
                ),
                //recents
-               Padding(padding: EdgeInsets.symmetric(vertical: 15,),
-               child: Text("Recently searched",style: Stylings.bodyMediumLargest.copyWith(color: Color(0xFFD9D9D9)),),),
-               SingleChildScrollView(
+               Padding(padding: const EdgeInsets.symmetric(vertical: 15,),
+               child: Text("Recently searched",style: Stylings.bodyMediumLargest.copyWith(color: const Color(0xFFD9D9D9)),),),
+               const SingleChildScrollView(
                  scrollDirection: Axis.horizontal,
                  physics: BouncingScrollPhysics(),
                  child: Row(
@@ -202,14 +208,14 @@ class Homepage extends StatelessWidget {
                  ),
                ),
                //tops
-               Padding(padding: EdgeInsets.symmetric(vertical: 15,),
-                 child: Text("Top Picks",style: Stylings.bodyMediumLargest.copyWith(color: Color(0xFFD9D9D9)),),),
+               Padding(padding: const EdgeInsets.symmetric(vertical: 15,),
+                 child: Text("Top Picks",style: Stylings.bodyMediumLargest.copyWith(color: const Color(0xFFD9D9D9)),),),
                SingleChildScrollView(
                  scrollDirection: Axis.vertical,
-                 physics: BouncingScrollPhysics(),
+                 physics: const BouncingScrollPhysics(),
                  child: Padding(
                    padding: EdgeInsets.only(bottom: Get.height*0.1,),
-                   child: Column(
+                   child: const Column(
                      children: [
                       Booktile(),
                       Booktile(),
@@ -241,7 +247,7 @@ class Homepage extends StatelessWidget {
             Align(
               alignment: Alignment.bottomRight,
               child: Container(
-               margin: EdgeInsets.only(bottom: 30),
+               margin: const EdgeInsets.only(bottom: 30),
                 padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -264,8 +270,8 @@ class Homepage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.home_outlined,size: 25,color: Get.find<MainControoller>().navIndex.value==0?Stylings.accentBlue:Colors.white,),
-                         const SizedBox(height: 3,),
+                          Icon(FluentIcons.home_28_regular,size: 25,color: Get.find<MainControoller>().navIndex.value==0?Stylings.accentBlue:Colors.white,),
+                         const SizedBox(height: 5,),
                           Text("Home",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainControoller>().navIndex.value==0?Stylings.accentBlue:Colors.white,),)
                         ],
                       ),
@@ -279,8 +285,8 @@ class Homepage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.favorite_border,size: 25,color: Get.find<MainControoller>().navIndex.value==1?Stylings.accentBlue:Colors.white,),
-                          const SizedBox(height: 3,),
+                          Icon(FluentIcons.heart_28_regular,size: 25,color: Get.find<MainControoller>().navIndex.value==1?Stylings.accentBlue:Colors.white,),
+                          const SizedBox(height: 5,),
                           Text("Wishlist",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainControoller>().navIndex.value==1?Stylings.accentBlue:Colors.white,),)
                         ],
                       ),
@@ -294,8 +300,8 @@ class Homepage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.search,size: 25,color: Get.find<MainControoller>().navIndex.value==2?Stylings.accentBlue:Colors.white,),
-                          const SizedBox(height: 3,),
+                          Icon(FluentIcons.search_28_regular,size: 25,color: Get.find<MainControoller>().navIndex.value==2?Stylings.accentBlue:Colors.white,),
+                          const SizedBox(height: 5,),
                           Text("Search",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainControoller>().navIndex.value==2?Stylings.accentBlue:Colors.white,),)
                         ],
                       ),
@@ -309,8 +315,8 @@ class Homepage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.shopping_cart_outlined,size: 25,color: Get.find<MainControoller>().navIndex.value==3?Stylings.accentBlue:Colors.white,),
-                          const SizedBox(height: 3,),
+                          Icon(FluentIcons.cart_24_regular,size: 27,color: Get.find<MainControoller>().navIndex.value==3?Stylings.accentBlue:Colors.white,),
+                          const SizedBox(height: 5,),
                           Text("Cart",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainControoller>().navIndex.value==3?Stylings.accentBlue:Colors.white,),)
                         ],
                       ),
@@ -324,8 +330,17 @@ class Homepage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.person_2_outlined,size: 25,color: Get.find<MainControoller>().navIndex.value==4?Stylings.accentBlue:Colors.white,),
-                          const SizedBox(height: 3,),
+                          Get.find<MainControoller>().navIndex.value==4?SizedBox(
+                            height: 23,
+                            width: 23,
+                            child: Image.asset("assets/images/avatar.png"),
+                          ):SizedBox(
+                            height: 25,
+                            width: 25,
+                            child: Image.asset("assets/images/avatarnav.png"),
+                          ),
+                        //  Icon(FluentIcons.person_28_regular,size: 25,color: Get.find<MainControoller>().navIndex.value==4?Stylings.accentBlue:Colors.white,),
+                          const SizedBox(height: 5,),
                           Text("Profile",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainControoller>().navIndex.value==4?Stylings.accentBlue:Colors.white,),)
                         ],
                       ),
