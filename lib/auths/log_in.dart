@@ -130,7 +130,7 @@ class LogIn extends StatelessWidget {
 
                   const SizedBox(height: 20,),
                   //Sign up button
-                   Mybutton(bText: "Log in",diffColor: false, toDo: () { Get.to(()=>Homepage()); },),
+                   Mybutton(bText: "Log in", toDo: () { Get.to(()=>Homepage()); },),
                   SizedBox(height: Get.height*0.03,),
 
                   Padding(

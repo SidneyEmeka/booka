@@ -89,7 +89,7 @@ class Forgotpassword extends StatelessWidget {
 
                   const SizedBox(height: 20,),
                   //Sign up button
-                  Mybutton(bText: "Reset Password",diffColor: false, toDo: () {  Get.to(()=>const Setnewpassword()); },),
+                  Mybutton(bText: "Reset Password",toDo: () {  Get.to(()=>const Setnewpassword()); },),
 
                 ],
               ),

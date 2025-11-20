@@ -1,4 +1,5 @@
 import 'package:booka/auths/log_in.dart';
+import 'package:booka/auths/otherinformation.dart';
 import 'package:booka/reusables/mybutton.dart';
 import 'package:booka/stylings.dart';
 import 'package:flutter/material.dart';
@@ -148,7 +149,9 @@ class SignUpPage extends StatelessWidget {
 
                   const SizedBox(height: 20,),
                   //Sign up button
-                   Mybutton(bText: "Sign Up",diffColor: false, toDo: () {  },),
+                   Mybutton(bText: "Sign Up", toDo: () {
+                     Get.to(()=>Otherinformation());
+                   },),
                   SizedBox(height: Get.height*0.03,),
 
                   Padding(

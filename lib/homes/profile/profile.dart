@@ -1,5 +1,7 @@
 import 'package:booka/getxservers/maincontroller.dart';
+import 'package:booka/homes/profile/editprofile.dart';
 import 'package:booka/reusables/copybutton.dart';
+import 'package:booka/reusables/mybutton.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,6 +28,7 @@ class Profile extends StatelessWidget {
         ),
       ),
       body: Obx(()=>Container(
+        //color: Colors.white,
         margin: const EdgeInsets.symmetric(horizontal: 20),
         width: Get.width,
         height: Get.height,
@@ -45,24 +48,29 @@ class Profile extends StatelessWidget {
             Text("Agric Economics and Extension",style: Stylings.displaySemiBoldSmaller),
             SizedBox(height: Get.height*0.04),
 
+
             Container(
               width: Get.width,
-              padding: EdgeInsets.symmetric(horizontal: 15,vertical: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 25),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Stylings.accentBlue,width: 1.5)
+                  border: Border(
+                    top: BorderSide(color: Stylings.accentBlue,width: 1.5),
+                    right: BorderSide(color: Stylings.accentBlue,width: 1.5),
+                    left: BorderSide(color: Stylings.accentBlue,width: 1.5),
+                  )
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Account Settings",style: Stylings.displayBoldest.copyWith(color: Color(0xFFBEBFBF)),),
+                  Text("Account Settings",style: Stylings.displayBoldest.copyWith(color: const Color(0xFFBEBFBF)),),
                   SizedBox(height: Get.height*0.03),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("Email Notifications",style: Stylings.displaySemiBold.copyWith(color: Color(0xFFBEBFBF))),
+                      Text("Email Notifications",style: Stylings.displaySemiBold.copyWith(color: const Color(0xFFBEBFBF))),
 
                       Myswitch(value: Get.find<MainControoller>().userNotificationPreferences['email']!, onChanged: (value){
                         if (value) {
@@ -80,7 +88,7 @@ class Profile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("SMS Updates",style: Stylings.displaySemiBold.copyWith(color: Color(0xFFBEBFBF))),
+                      Text("SMS Updates",style: Stylings.displaySemiBold.copyWith(color: const Color(0xFFBEBFBF))),
 
                       Myswitch(value: Get.find<MainControoller>().userNotificationPreferences['sms']!, onChanged: (value){
                         if (value) {
@@ -94,26 +102,47 @@ class Profile extends StatelessWidget {
                     ],
                   ),
                   Divider(color: Colors.grey.shade300,),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Icon(FluentIcons.star_28_filled,size: 25,color: Color(0xFFFFD700),),
-                      SizedBox(width: 5,),
-                      Text("Current points: 120",style: Stylings.displaySemiBold.copyWith(color: Color(0xFFBEBFBF))),
-                      Spacer(),
-                      CopyButton(textToCopy: "textToCopy")
+                      const Icon(FluentIcons.star_28_filled,size: 25,color: Color(0xFFFFD700),),
+                      const SizedBox(width: 5,),
+                      Text("Current points: 120",style: Stylings.displaySemiBold.copyWith(color: const Color(0xFFBEBFBF))),
+                      const Spacer(),
+                      const CopyButton(textToCopy: "textToCopy")
                     ],
                   ),
                   
                 ],
               ),
             ),
+            Spacer(),
+            Container(
+              padding: EdgeInsets.only(right: 30,left: 30,bottom: 30),
+              width: Get.width,
+              decoration: BoxDecoration(
+                  color: Stylings.bgColor
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Mybutton(bText: "Edit profile", toDo: (){
+                    Get.to(()=>Editprofile());
+                  }),
+                  SizedBox(height: 10,),
+                  Mybutton(bText: "Log out", diffColor:true, toDo: (){},col1: Color(0xFFE14642), col2: Color(0xFFF26357),)
+                ],
+              ),
+            ),
+
 
           ],
         ),
-      ),)
+      ),),
     );
   }
 }

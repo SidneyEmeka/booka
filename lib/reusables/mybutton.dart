@@ -12,7 +12,7 @@ class Mybutton extends StatelessWidget {
   final bool isActive;
   final bool hasMargin;
   final Function() toDo;
-  const Mybutton({super.key, required this.bText, required this.diffColor,  this.isActive=true, this.hasMargin=true, this.col1=Colors.transparent, this.col2=Colors.transparent, required this.toDo});
+  const Mybutton({super.key, required this.bText,  this.diffColor=false,  this.isActive=true, this.hasMargin=true, this.col1=Colors.transparent, this.col2=Colors.transparent, required this.toDo});
 
   @override
   Widget build(BuildContext context) {

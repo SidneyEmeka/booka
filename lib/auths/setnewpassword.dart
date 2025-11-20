@@ -101,7 +101,7 @@ class Setnewpassword extends StatelessWidget {
                   ),
                   const SizedBox(height: 20,),
                   //Sign up button
-                   Mybutton(bText: "Reset Password",diffColor: false, toDo: () {  },),
+                   Mybutton(bText: "Reset Password", toDo: () {  },),
 
 
                 ],
