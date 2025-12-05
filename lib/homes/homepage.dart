@@ -1,4 +1,5 @@
 import 'package:booka/getxservers/maincontroller.dart';
+import 'package:booka/homes/cart.dart';
 import 'package:booka/homes/profile/profile.dart';
 import 'package:booka/reusables/bookcard.dart';
 import 'package:booka/reusables/booktile.dart';
@@ -31,19 +32,18 @@ class Homepage extends StatelessWidget {
               onTap: (){
               },
               child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  padding: const EdgeInsets.only(left: 12),
                   child: Icon(Icons.arrow_back_ios_new_sharp,color: Stylings.accentBlue,size: 23,)),
             ),
-            Builder(
-                builder: (context)=> GestureDetector(
-                    onTap: (){
-                      Scaffold.of(context).openDrawer();
-                    },
-                    child: Icon(Icons.menu,color: Stylings.accentBlue,size: 23,)),
-            ),
+            // Builder(
+            //     builder: (context)=> GestureDetector(
+            //         onTap: (){
+            //           Scaffold.of(context).openDrawer();
+            //         },
+            //         child: Icon(Icons.menu,color: Stylings.accentBlue,size: 23,)),
+            // ),
             Container(
-                margin: const EdgeInsets.symmetric(horizontal: 12),
-                width: 38,
+                margin: const EdgeInsets.symmetric(horizontal: 5),
                 height: 20,
                 child: Image.asset("assets/images/logospelled.png")),
           ],
@@ -53,6 +53,7 @@ class Homepage extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             splashColor: Stylings.transparent,
             onTap: (){
+              Get.to(()=>Cart());
             },
             child: Icon(Icons.shopping_cart_outlined,color: Stylings.accentBlue,size: 23,),
           ),
@@ -68,79 +69,79 @@ class Homepage extends StatelessWidget {
           ),
         ],
       ),
-      drawer: Drawer(
-        backgroundColor: Stylings.bgColor,
-        width: Get.width,
-        child: SafeArea(
-          child: Container(
-            width: Get.width,
-            height: Get.height,
-            padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 30),
-            child: ListView(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text("Welcome Isidore",style: Stylings.displayExtraBoldMedium.copyWith(color: Stylings.accentBlue),),
-                    Icon(Icons.notifications,size: 25,color: Stylings.accentBlue,),
-                  ],
-                ),
-
-                Container(
-                  width: Get.width,
-                  padding: const EdgeInsets.symmetric(horizontal: 4,vertical: 3),
-                  margin: const EdgeInsets.symmetric(vertical: 15),
-                  decoration: BoxDecoration(
-                      color: const Color(0xFF1F6193),
-                      borderRadius: BorderRadius.circular(5)
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          alignment: const Alignment(-1, 0),
-                          padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8),
-                          width: Get.width,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(7)
-                          ),
-                          child: Text("Find books by course or title",style: Stylings.bodyMediumLarger.copyWith(color: Stylings.bgColor.withOpacity(0.6)),),
-                        ),
-                      ),
-                      const SizedBox(width: 10,),
-                      const Icon(Icons.search,color: Colors.white,size: 25,)
-                    ],
-                  ),
-                ),
-
-                SizedBox(
-                  height: Get.height,
-                  child:GridView.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 15,
-                    children: [
-                      const Menucard(title: "Browse Books", icon: Icons.search, color: Color(0xFF287CF6)),
-                      const Menucard(title: "My Orders", icon: Icons.shopping_cart_outlined, color: Color(0xFF287CF6)),
-                      const Menucard(title: "Time Slots", icon: Icons.access_time, color: Color(0xFF47C8E5)),
-                      const Menucard(title: "Pick-Up/Delivery", icon: Icons.delivery_dining_outlined, color: Color(0xFF47C8E5)),
-                      const Menucard(title: "Loyalty & Referrals", icon: Icons.star, color: Color(0xFF47C8E5)),
-                      GestureDetector(
-                          onTap: (){
-                            Get.to(()=>const Profile());
-                          },
-                          child: const Menucard(title: "Profile", icon: Icons.person, color: Color(0xFF287CF6))),
-                    ],
-                  )
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
+      // drawer: Drawer(
+      //   backgroundColor: Stylings.bgColor,
+      //   width: Get.width,
+      //   child: SafeArea(
+      //     child: Container(
+      //       width: Get.width,
+      //       height: Get.height,
+      //       padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 30),
+      //       child: ListView(
+      //         children: [
+      //           Row(
+      //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //             crossAxisAlignment: CrossAxisAlignment.center,
+      //             children: [
+      //               Text("Welcome Isidore",style: Stylings.displayExtraBoldMedium.copyWith(color: Stylings.accentBlue),),
+      //               Icon(Icons.notifications,size: 25,color: Stylings.accentBlue,),
+      //             ],
+      //           ),
+      //
+      //           Container(
+      //             width: Get.width,
+      //             padding: const EdgeInsets.symmetric(horizontal: 4,vertical: 3),
+      //             margin: const EdgeInsets.symmetric(vertical: 15),
+      //             decoration: BoxDecoration(
+      //                 color: const Color(0xFF1F6193),
+      //                 borderRadius: BorderRadius.circular(5)
+      //             ),
+      //             child: Row(
+      //               mainAxisAlignment: MainAxisAlignment.start,
+      //               crossAxisAlignment: CrossAxisAlignment.center,
+      //               children: [
+      //                 Expanded(
+      //                   child: Container(
+      //                     alignment: const Alignment(-1, 0),
+      //                     padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8),
+      //                     width: Get.width,
+      //                     decoration: BoxDecoration(
+      //                         color: Colors.white,
+      //                         borderRadius: BorderRadius.circular(7)
+      //                     ),
+      //                     child: Text("Find books by course or title",style: Stylings.bodyMediumLarger.copyWith(color: Stylings.bgColor.withOpacity(0.6)),),
+      //                   ),
+      //                 ),
+      //                 const SizedBox(width: 10,),
+      //                 const Icon(Icons.search,color: Colors.white,size: 25,)
+      //               ],
+      //             ),
+      //           ),
+      //
+      //           SizedBox(
+      //             height: Get.height,
+      //             child:GridView.count(
+      //               crossAxisCount: 2,
+      //               crossAxisSpacing: 15,
+      //               children: [
+      //                 const Menucard(title: "Browse Books", icon: Icons.search, color: Color(0xFF287CF6)),
+      //                 const Menucard(title: "My Orders", icon: Icons.shopping_cart_outlined, color: Color(0xFF287CF6)),
+      //                 const Menucard(title: "Time Slots", icon: Icons.access_time, color: Color(0xFF47C8E5)),
+      //                 const Menucard(title: "Pick-Up/Delivery", icon: Icons.delivery_dining_outlined, color: Color(0xFF47C8E5)),
+      //                 const Menucard(title: "Loyalty & Referrals", icon: Icons.star, color: Color(0xFF47C8E5)),
+      //                 GestureDetector(
+      //                     onTap: (){
+      //                       Get.to(()=>const Profile());
+      //                     },
+      //                     child: const Menucard(title: "Profile", icon: Icons.person, color: Color(0xFF287CF6))),
+      //               ],
+      //             )
+      //           )
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      // ),
       body: Obx(()=> Container(
         width: Get.width,
         height: Get.height,
@@ -149,11 +150,8 @@ class Homepage extends StatelessWidget {
           children: [
            ListView(
              children: [
-               GestureDetector(
-                   onTap: (){
-                     Scaffold.of(context).openDrawer();
-                   },
-                   child: Text("Welcome, Isdore",style: Stylings.displaySemiBoldMedium.copyWith(color: Stylings.accentBlue),)),
+               SizedBox(height: Get.height*0.05),
+               Text("Welcome, Isdore",style: Stylings.displaySemiBoldMedium.copyWith(color: Stylings.accentBlue),),
                SizedBox(height: Get.height*0.02),
                Container(
                  width: Get.width,
@@ -243,6 +241,11 @@ class Homepage extends StatelessWidget {
 
              ],
            ),
+
+
+
+
+
             ///Bottom NavBar
             Align(
               alignment: Alignment.bottomRight,

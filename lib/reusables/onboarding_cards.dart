@@ -14,7 +14,7 @@ class OnboardingCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       //color: Colors.red,
       width: Get.width,
       height: Get.height*0.5,
@@ -23,14 +23,14 @@ class OnboardingCards extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-            child: Container(
+            child: SizedBox(
              // color: Colors.red,
                 width: Get.width,
                 child: Image(image: picture,fit: BoxFit.contain,)),
           ),
-          Container(
+          SizedBox(
             width: Get.width*0.60,
-            child: Text(info, style: Stylings.bodyMediumLargest,
+            child: Text(info, style: Stylings.bodyMediumLarge,
             textAlign: TextAlign.center,),
           ),
         ],

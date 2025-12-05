@@ -22,6 +22,13 @@ static TextStyle displayBoldest = const TextStyle(
     color: Colors.white
 );
 
+static TextStyle displayBoldestSmall = const TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 13,
+    fontWeight: FontWeight.w900,
+    color: Colors.white
+);
+
 
 
 static TextStyle displayExtraBoldSmall = const TextStyle(
@@ -57,6 +64,13 @@ static TextStyle displayBoldMedium = const TextStyle(
 static TextStyle displayBoldSmall = const TextStyle(
     fontFamily: 'Nunito',
     fontSize: 15,
+    fontWeight: FontWeight.w700,
+  color: Colors.white
+);
+
+static TextStyle displayBoldSmaller = const TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 14,
     fontWeight: FontWeight.w700,
   color: Colors.white
 );
@@ -121,7 +135,12 @@ static TextStyle bodyMediumLarger = const TextStyle(
     fontWeight: FontWeight.w500,
   color: Colors.white
 );
-
+  // static TextStyle bodyMediumLarge = const TextStyle(
+  //     fontFamily: 'Nunito',
+  //     fontSize: 18,
+  //     fontWeight: FontWeight.w500,
+  //     color: Colors.white
+  // );
 
 
 
@@ -162,15 +181,22 @@ static TextStyle bodyRegularMedium = const TextStyle(
     fontWeight: FontWeight.w400,
     color: Colors.white
 );
+//
+// static TextStyle bodyRegularLargest = const TextStyle(
+//     fontFamily: 'Nunito',
+//     fontSize: 18,
+//     fontWeight: FontWeight.w400,
+//   color: Colors.white
+// );
+  static TextStyle bodyRegularLargest = const TextStyle(
+      fontFamily: 'Nunito',
+      fontSize: 19,
+      fontWeight: FontWeight.w400,
+      color: Colors.white
+  );
 
-static TextStyle bodyRegularLargest = const TextStyle(
-    fontFamily: 'Nunito',
-    fontSize: 18,
-    fontWeight: FontWeight.w400,
-  color: Colors.white
-);
 
-static TextStyle buttonTexts = const TextStyle(
+  static TextStyle buttonTexts = const TextStyle(
     fontFamily: 'Poppins',
     fontSize: 13,
     fontWeight: FontWeight.w400,
