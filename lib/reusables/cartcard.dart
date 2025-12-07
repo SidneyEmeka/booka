@@ -53,14 +53,14 @@ class Cartcard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.end,
                          children: [
-                           Icon(FluentIcons.delete_48_regular,size: 23,color: Colors.black,),
-                           SizedBox(height: 10,),
+                           const Icon(FluentIcons.delete_48_regular,size: 23,color: Colors.black,),
+                           const SizedBox(height: 10,),
                            //Counter
                            Container(
-                             padding: EdgeInsets.symmetric(horizontal: 1,vertical: 2),
+                             padding: const EdgeInsets.symmetric(horizontal: 1,vertical: 2),
                              decoration: BoxDecoration(
                                borderRadius: BorderRadius.circular(10),
-                               color: Color(0xFFFFD166),
+                               color: const Color(0xFFFFD166),
                              ),
                              child: Row(
                                mainAxisAlignment: MainAxisAlignment.start,
@@ -68,11 +68,11 @@ class Cartcard extends StatelessWidget {
                                children: [
                                  Icon(Icons.remove,size: 20,color: Stylings.bgColor,),
                                 Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 3),
-                                  margin: EdgeInsets.symmetric(horizontal: 3),
-                                  alignment: Alignment(0, 0),
+                                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                                  margin: const EdgeInsets.symmetric(horizontal: 3),
+                                  alignment: const Alignment(0, 0),
                                   color: Colors.white,
-                                  child: Text("1"),
+                                  child: const Text("1"),
                                 ),
                                  Icon(Icons.add,size: 20,color: Stylings.bgColor,),
                                ],
@@ -98,9 +98,9 @@ class Cartcard extends StatelessWidget {
 
 
           ),
-          SizedBox(height: 8,),
+          const SizedBox(height: 8,),
           Divider(color: Colors.black.withOpacity(0.5),),
-          SizedBox(height: 8,),
+          const SizedBox(height: 8,),
         ],
       ),
     );

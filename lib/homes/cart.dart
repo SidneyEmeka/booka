@@ -1,3 +1,4 @@
+import 'package:booka/paymentmethods/cryptopayment.dart';
 import 'package:booka/reusables/cartcard.dart';
 import 'package:booka/reusables/mybutton.dart';
 import 'package:flutter/material.dart';
@@ -13,54 +14,6 @@ class Cart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leadingWidth: Get.width*0.5,
-        leading:  Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            InkWell(
-              borderRadius: BorderRadius.circular(20),
-              splashColor: Stylings.transparent,
-              onTap: (){
-              },
-              child: Padding(
-                  padding: const EdgeInsets.only(left: 12),
-                  child: Icon(Icons.arrow_back_ios_new_sharp,color: Stylings.accentBlue,size: 23,)),
-            ),
-            // Builder(
-            //     builder: (context)=> GestureDetector(
-            //         onTap: (){
-            //           Scaffold.of(context).openDrawer();
-            //         },
-            //         child: Icon(Icons.menu,color: Stylings.accentBlue,size: 23,)),
-            // ),
-            Container(
-                margin: const EdgeInsets.symmetric(horizontal: 5),
-                height: 20,
-                child: Image.asset("assets/images/logospelled.png")),
-          ],
-        ),
-        actions: [
-          // InkWell(
-          //   borderRadius: BorderRadius.circular(20),
-          //   splashColor: Stylings.transparent,
-          //   onTap: (){
-          //   },
-          //   child: Icon(Icons.shopping_cart_outlined,color: Stylings.accentBlue,size: 23,),
-          // ),
-          InkWell(
-            borderRadius: BorderRadius.circular(20),
-            splashColor: Stylings.transparent,
-            onTap: (){
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Icon(Icons.person,color: Stylings.accentBlue,size: 23,),
-            ),
-          ),
-        ],
-      ),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
         width: Get.width,
@@ -170,7 +123,7 @@ class Cart extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 15),
-              Mybutton(bText: "Proceed to payment", toDo: (){}),
+              Mybutton(bText: "Proceed to payment", toDo: (){Get.to(()=>Cryptopayment());}),
               SizedBox(height: 30,),
             ],
           ),)
