@@ -14,9 +14,10 @@ class SignUpPage extends StatefulWidget {
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
-final _formKey = GlobalKey<FormState>();
 
 class _SignUpPageState extends State<SignUpPage> {
+  final _signUpKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +91,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
 
                Form(
-                 key: _formKey,
+                 key: _signUpKey,
                    child: Column(
                  mainAxisSize: MainAxisSize.min,
                  mainAxisAlignment: MainAxisAlignment.start,
@@ -178,11 +179,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   const SizedBox(height: 20,),
                   //Sign up button
                    Mybutton(bText: "Sign Up", toDo: () {
-                     if (_formKey.currentState?.validate() ?? false) {
-                       // All valid - proceed
-                       Get.to(()=>Otherinformation());
-                     }
+                     if (_signUpKey.currentState?.validate() ?? false) {
 
+                       Get.find<Bookax>().getUniversities();
+                     }
                    },),
 
 

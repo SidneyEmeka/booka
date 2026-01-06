@@ -1,11 +1,16 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:booka/auths/otherinformation.dart';
+import 'package:booka/reusables/loadingpage.dart';
+import 'package:booka/stylings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../models/universitymodel.dart';
 import 'apiclient.dart';
 
 
@@ -57,6 +62,8 @@ class Bookax extends GetxController {
   }
 
 
+  //Toast
+
 
 
   // emailInputFormatter() {
@@ -85,12 +92,35 @@ class Bookax extends GetxController {
   var userUsername = "".obs;
   var userEmail = "".obs;
   var userPassword = "".obs;
-  var userUniversityId = "".obs;
+  var userUniversityId = "fbb16e26-bc11-477c-86c1-4fc2744ea01d".obs; //default for unn
   var userDepartment = "".obs;
   var userLevel = 0.obs;
   var userPhoneNumber = "".obs;
 
-  var emailErrorText = "".obs;
+
+  var universities = [];
+
+  getUniversities(){
+    Get.to(()=>Loadingpage(doingWhat: "Fetching Universities"));
+    UniversityApiClient().makeGetRequest("get-universities").then((u){
+      final universityModel = universityModelFromJson(u);
+      if (universityModel.success==true){
+        Get.off(()=>Otherinformation());
+        universities = universityModel.data.universities;
+      }
+      else{
+        Get.off(()=>Otherinformation());
+        print("fail $u");
+      }
+    }).catchError((e){
+      isLoading.value = false;
+      Get.off(()=>Otherinformation());
+      Get.snackbar("Something Happened", "$e",
+      colorText: Colors.white);
+    });
+  }
+
+
 
   createAccount() {
     isLoading.value = true;
@@ -125,6 +155,7 @@ class Bookax extends GetxController {
           registerErrorText.value = c["message"];
         }
       }).catchError((e){
+        isLoading.value = false;
         registerErrorText.value = e["e"];
       });
     }

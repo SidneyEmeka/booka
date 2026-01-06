@@ -8,9 +8,7 @@ import '../stylings.dart';
 
 class Loadingpage extends StatefulWidget {
   final String doingWhat;
-  final RxBool persist;
-  final Function whatNext;
-  const Loadingpage({super.key, required this.doingWhat, required this.persist, required this.whatNext});
+  const Loadingpage({super.key, required this.doingWhat});
 
   @override
   State<Loadingpage> createState() => _LoadingpageState();
@@ -20,7 +18,7 @@ class _LoadingpageState extends State<Loadingpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(()=>widget.persist.value?
+      body:
       Container(
         color: Stylings.bgColor,
         alignment: Alignment(0, 0),
@@ -36,9 +34,8 @@ class _LoadingpageState extends State<Loadingpage> {
             Text( textAlign: TextAlign.center,'${widget.doingWhat}...',style: Stylings.bodyMediumLarge)
           ],
         ),
-      ):
-      widget.whatNext()
-        ,)
+      )
+
     );
   }
 }
