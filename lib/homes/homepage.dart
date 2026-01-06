@@ -1,5 +1,4 @@
-import 'package:booka/getxservers/maincontroller.dart';
-import 'package:booka/homes/cart.dart';
+import 'package:booka/checkout/cart.dart';
 import 'package:booka/homes/profile/profile.dart';
 import 'package:booka/reusables/bookcard.dart';
 import 'package:booka/reusables/booktile.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../getxcontrollers/maincontroller.dart';
 import '../stylings.dart';
 
 class Homepage extends StatelessWidget {

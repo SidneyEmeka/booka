@@ -1,4 +1,3 @@
-import 'package:booka/paymentmethods/cryptopayment.dart';
 import 'package:booka/reusables/cartcard.dart';
 import 'package:booka/reusables/mybutton.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../stylings.dart';
+import 'cryptopayment.dart';
 
 
 class Cart extends StatelessWidget {

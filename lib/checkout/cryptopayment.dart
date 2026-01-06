@@ -1,3 +1,4 @@
+import 'package:booka/checkout/receipt.dart';
 import 'package:booka/reusables/mybutton.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,7 @@ class Cryptopayment extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text("Crypto",style: Stylings.displaySemiBoldMedium.copyWith(color: Stylings.accentBlue),),
+            SizedBox(height: 15),
             Container(
               decoration: const BoxDecoration(
                 color: Color(0xFF161D2D),
@@ -147,7 +149,8 @@ class Cryptopayment extends StatelessWidget {
 
             SizedBox(height: 30),
             //button
-            Mybutton(bText: "Pay Now", toDo: (){}),
+            Mybutton(bText: "Pay Now", toDo: (){
+              Get.to(()=>Receipt());}),
             Spacer(),
           ],
         ),

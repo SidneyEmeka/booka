@@ -1,4 +1,3 @@
-import 'package:booka/getxservers/maincontroller.dart';
 import 'package:booka/homes/profile/editprofile.dart';
 import 'package:booka/reusables/copybutton.dart';
 import 'package:booka/reusables/mybutton.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../getxcontrollers/maincontroller.dart';
 import '../../reusables/myswitch.dart';
 import '../../stylings.dart';
 

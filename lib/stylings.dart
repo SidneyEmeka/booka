@@ -203,4 +203,16 @@ static TextStyle bodyRegularMedium = const TextStyle(
     color: Colors.white
 );
 
+
+
+
+
+  static TextStyle errorText = TextStyle(
+      fontFamily: 'Nunito',
+      fontSize: 12,
+      fontWeight: FontWeight.w400,
+      color: Colors.white
+  );
+
+
 }

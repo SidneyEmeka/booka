@@ -1,4 +1,4 @@
-import 'package:booka/getxservers/maincontroller.dart';
+import 'package:booka/reusables/loadingpage.dart';
 import 'package:booka/splash_screen.dart';
 import 'package:booka/stylings.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
+import 'getxcontrollers/maincontroller.dart';
 import 'onboarding/onboarding.dart';
 
 void main() async{
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         scaffoldBackgroundColor: const Color(0xFF081831),
         inputDecorationTheme: InputDecorationTheme(
+          errorStyle:  Stylings.errorText,
+          errorMaxLines: 2,
+         // isCollapsed: true,
           fillColor: Colors.white, //check usage
           filled: true,
           focusedBorder: OutlineInputBorder(
@@ -47,7 +51,7 @@ class MyApp extends StatelessWidget {
               borderSide: const BorderSide(color: Colors.red)),
           focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.red)),
+              borderSide: BorderSide(color: Stylings.transparent)),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: Stylings.transparent, width: 0.5)),
@@ -60,7 +64,8 @@ class MyApp extends StatelessWidget {
           scrolledUnderElevation: 0
         )
       ),
-      home: const Onboarding(),
+       home: const Onboarding(),
+      //home: Loadingpage(doingWhat: "Creating your account", persist: true.obs, whatNext: (){Get.to(()=>Onboarding());},),
     );
   }
 }

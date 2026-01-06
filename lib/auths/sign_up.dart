@@ -1,14 +1,22 @@
 import 'package:booka/auths/log_in.dart';
 import 'package:booka/auths/otherinformation.dart';
 import 'package:booka/reusables/mybutton.dart';
+import 'package:booka/server/getxserver.dart';
 import 'package:booka/stylings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+final _formKey = GlobalKey<FormState>();
+
+class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,79 +87,115 @@ class SignUpPage extends StatelessWidget {
                   Text('or',style: Stylings.bodyRegularLargest,),
                SizedBox(height: Get.height*0.03,),
 
-                  SizedBox(
-                    height: Get.height * 0.055,
-                    child: TextFormField(
-                      onTap: () {
 
-                      },
-                      onChanged: (p) {
 
-                      },
-                      style: Stylings.bodyRegularMedium.copyWith(
-                          color: const Color(0xFF222222)),
-                      keyboardType: TextInputType.name,
-                      cursorColor: Colors.grey.shade500,
-                      cursorHeight: 15,
-                      cursorWidth: 1,
-                      decoration: const InputDecoration(
-                        hintText: "Username",
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20,),
-                  //Email/Phone
-                  SizedBox(
-                    height: Get.height * 0.055,
-                    child: TextFormField(
-                      onTap: () {
+               Form(
+                 key: _formKey,
+                   child: Column(
+                 mainAxisSize: MainAxisSize.min,
+                 mainAxisAlignment: MainAxisAlignment.start,
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   //username
+                   TextFormField(
+                     onChanged: (p) {
+                       Get.find<Bookax>().userUsername.value=p;
+                     },
+                     validator: (e){
+                       if (e == null || e.isEmpty) {
+                         return "Username is required";
+                       }
+                       return null;
+                     },
+                     style: Stylings.bodyRegularMedium.copyWith(
+                         color: const Color(0xFF222222)),
+                     keyboardType: TextInputType.emailAddress,
+                     cursorColor: Colors.grey.shade500,
+                     cursorHeight: 15,
+                     cursorWidth: 1,
+                     decoration: const InputDecoration(
+                       hintText: "Username",
+                     ),
+                   ),
+                   const SizedBox(height: 20,),
+                   //Email
+                   TextFormField(
+                     onChanged: (p) {
+                       Get.find<Bookax>().userEmail.value=p;
+                     },
+                     validator: (e){
+                       final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                       if (e == null || e.isEmpty) {
+                        return "Email cannot be Empty";
+                       }
+                      else if (!emailRegex.hasMatch(e)) {
+                          return "Please enter a valid email";
+                       }
+                       return null;
+                     },
+                     style: Stylings.bodyRegularMedium.copyWith(
+                         color: const Color(0xFF222222)),
+                     keyboardType: TextInputType.emailAddress,
+                     cursorColor: Colors.grey.shade500,
+                     cursorHeight: 15,
+                     cursorWidth: 1,
+                     decoration: const InputDecoration(
+                       hintText: "Email",
+                     ),
+                   ),
+                   const SizedBox(height: 20,),
+                   //password
+                   TextFormField(
+                     onChanged: (p) {
+                       Get.find<Bookax>().userPassword.value=p;
+                     },
+                       validator: (value) {
+                         if (value == null || value.isEmpty) {
+                           return 'Password is required';
+                         }
+                         final passwordRegex = RegExp(r'^(?=.*[0-9]).{8,}$');
+                         if (!passwordRegex.hasMatch(value)) {
+                           return 'Password must be at least 8 characters and contain a number';
+                         }
+                         return null;
+                       },
+                     style: Stylings.bodyRegularMedium.copyWith(
+                         color: const Color(0xFF222222)),
+                     keyboardType: TextInputType.emailAddress,
+                     cursorColor: Colors.grey.shade500,
+                     cursorHeight: 15,
+                     cursorWidth: 1,
+                     decoration: const InputDecoration(
+                       hintText: "Password",
+                     ),
+                   ),
 
-                      },
-                      onChanged: (p) {
-
-                      },
-                      style: Stylings.bodyRegularMedium.copyWith(
-                          color: const Color(0xFF222222)),
-                      keyboardType: TextInputType.emailAddress,
-                      cursorColor: Colors.grey.shade500,
-                      cursorHeight: 15,
-                      cursorWidth: 1,
-                      decoration: const InputDecoration(
-                        hintText: "Email or phone number",
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20,),
-                  //password
-                  SizedBox(
-                    height: Get.height * 0.055,
-                    child: TextFormField(
-                      onTap: () {
-
-                      },
-                      onChanged: (p) {
-
-                      },
-                      style: Stylings.bodyRegularMedium.copyWith(
-                          color: const Color(0xFF222222)),
-                      keyboardType: TextInputType.name,
-                      cursorColor: Colors.grey.shade500,
-                      cursorHeight: 15,
-                      cursorWidth: 1,
-                      decoration: const InputDecoration(
-                        hintText: "Password",
-                      ),
-                    ),
-                  ),
-
+                 ],
+               )),
 
 
 
                   const SizedBox(height: 20,),
                   //Sign up button
                    Mybutton(bText: "Sign Up", toDo: () {
-                     Get.to(()=>Otherinformation());
+                     if (_formKey.currentState?.validate() ?? false) {
+                       // All valid - proceed
+                       Get.to(()=>Otherinformation());
+                     }
+
                    },),
+
+
+
+
+
+
+
+
+
+
+
+
                   SizedBox(height: Get.height*0.03,),
 
                   Padding(
