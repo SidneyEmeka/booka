@@ -1,7 +1,7 @@
 import 'package:booka/auths/log_in.dart';
 import 'package:booka/auths/otherinformation.dart';
 import 'package:booka/reusables/mybutton.dart';
-import 'package:booka/server/getxserver.dart';
+import 'package:booka/getxcontrollers/authcontroller.dart';
 import 'package:booka/stylings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -100,7 +100,7 @@ class _SignUpPageState extends State<SignUpPage> {
                    //username
                    TextFormField(
                      onChanged: (p) {
-                       Get.find<Bookax>().userUsername.value=p;
+                       Get.find<AuthController>().userUsername.value=p;
                      },
                      validator: (e){
                        if (e == null || e.isEmpty) {
@@ -122,7 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
                    //Email
                    TextFormField(
                      onChanged: (p) {
-                       Get.find<Bookax>().userEmail.value=p;
+                       Get.find<AuthController>().userEmail.value=p;
                      },
                      validator: (e){
                        final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
@@ -148,7 +148,7 @@ class _SignUpPageState extends State<SignUpPage> {
                    //password
                    TextFormField(
                      onChanged: (p) {
-                       Get.find<Bookax>().userPassword.value=p;
+                       Get.find<AuthController>().userPassword.value=p;
                      },
                        validator: (value) {
                          if (value == null || value.isEmpty) {
@@ -182,7 +182,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                      if (_signUpKey.currentState?.validate() ?? false) {
 
-                       Get.find<Bookax>().getUniversities();
+                       Get.find<AuthController>().getUniversities();
                      }
 
                    },),

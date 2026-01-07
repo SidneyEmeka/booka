@@ -27,7 +27,14 @@ class Profile extends StatelessWidget {
               child: Icon(Icons.arrow_back_ios_new_sharp,color: Stylings.accentBlue,size: 23,)),
         ),
       ),
-      body: Obx(()=>Container(
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (didPop){
+          if(!didPop){
+            Get.find<MainController>().onTapNavItem(0);
+          }
+        },
+        child: Obx(()=>Container(
         //color: Colors.white,
         margin: const EdgeInsets.symmetric(horizontal: 20),
         width: Get.width,
@@ -72,12 +79,12 @@ class Profile extends StatelessWidget {
                     children: [
                       Text("Email Notifications",style: Stylings.displaySemiBold.copyWith(color: const Color(0xFFBEBFBF))),
 
-                      Myswitch(value: Get.find<MainControoller>().userNotificationPreferences['email']!, onChanged: (value){
+                      Myswitch(value: Get.find<MainController>().userNotificationPreferences['email']!, onChanged: (value){
                         if (value) {
-                          Get.find<MainControoller>().userNotificationPreferences['email']=true;
+                          Get.find<MainController>().userNotificationPreferences['email']=true;
                         }
                         else {
-                          Get.find<MainControoller>().userNotificationPreferences['email']=false;
+                          Get.find<MainController>().userNotificationPreferences['email']=false;
                         }
                       })
 
@@ -90,12 +97,12 @@ class Profile extends StatelessWidget {
                     children: [
                       Text("SMS Updates",style: Stylings.displaySemiBold.copyWith(color: const Color(0xFFBEBFBF))),
 
-                      Myswitch(value: Get.find<MainControoller>().userNotificationPreferences['sms']!, onChanged: (value){
+                      Myswitch(value: Get.find<MainController>().userNotificationPreferences['sms']!, onChanged: (value){
                         if (value) {
-                          Get.find<MainControoller>().userNotificationPreferences['sms']=true;
+                          Get.find<MainController>().userNotificationPreferences['sms']=true;
                         }
                         else {
-                          Get.find<MainControoller>().userNotificationPreferences['sms']=false;
+                          Get.find<MainController>().userNotificationPreferences['sms']=false;
                         }
                       })
 
@@ -114,7 +121,7 @@ class Profile extends StatelessWidget {
                       const CopyButton(textToCopy: "textToCopy")
                     ],
                   ),
-                  
+
                 ],
               ),
             ),
@@ -142,7 +149,7 @@ class Profile extends StatelessWidget {
 
           ],
         ),
-      ),),
+      ),),)
     );
   }
 }

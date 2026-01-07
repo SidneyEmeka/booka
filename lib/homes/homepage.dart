@@ -1,10 +1,12 @@
 import 'package:booka/checkout/cart.dart';
+import 'package:booka/getxcontrollers/authcontroller.dart';
 import 'package:booka/homes/profile/profile.dart';
 import 'package:booka/reusables/bookcard.dart';
 import 'package:booka/reusables/booktile.dart';
 import 'package:booka/reusables/menucard.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
@@ -150,8 +152,8 @@ class Homepage extends StatelessWidget {
           children: [
            ListView(
              children: [
-               SizedBox(height: Get.height*0.05),
-               Text("Welcome, Isdore",style: Stylings.displaySemiBoldMedium.copyWith(color: Stylings.accentBlue),),
+               SizedBox(height: Get.height*0.03),
+               Text("Welcome, ${Get.find<AuthController>().userData["name"]}",style: Stylings.displaySemiBoldMedium.copyWith(color: Stylings.accentBlue),),
                SizedBox(height: Get.height*0.02),
                Container(
                  width: Get.width,
@@ -184,24 +186,28 @@ class Homepage extends StatelessWidget {
                //recents
                Padding(padding: const EdgeInsets.symmetric(vertical: 15,),
                child: Text("Recently searched",style: Stylings.bodyMediumLargest.copyWith(color: const Color(0xFFD9D9D9)),),),
-               const SingleChildScrollView(
+               SingleChildScrollView(
                  scrollDirection: Axis.horizontal,
-                 physics: BouncingScrollPhysics(),
+                 physics: const BouncingScrollPhysics(),
                  child: Row(
                    children: [
-                     Bookcard(),
-                     Bookcard(),
-                     Bookcard(),
-                     Bookcard(),
-                     Bookcard(),
-                     Bookcard(),
-                     Bookcard(),
-                     Bookcard(),
-                     Bookcard(),
-                     Bookcard(),
-                     Bookcard(),
-                     Bookcard(),
-                     Bookcard(),
+                     GestureDetector(
+                         onTap: (){
+                           Clipboard.setData(ClipboardData(text: "${Get.find<AuthController>().userAccessToken}"));
+                         },
+                         child: Bookcard()),
+                     const Bookcard(),
+                     const Bookcard(),
+                     const Bookcard(),
+                     const Bookcard(),
+                     const Bookcard(),
+                     const Bookcard(),
+                     const Bookcard(),
+                     const Bookcard(),
+                     const Bookcard(),
+                     const Bookcard(),
+                     const Bookcard(),
+                     const Bookcard(),
                    ],
                  ),
                ),
@@ -266,74 +272,74 @@ class Homepage extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: (){
-                        Get.find<MainControoller>().onTapNavItem(0);
+                        Get.find<MainController>().onTapNavItem(0);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(FluentIcons.home_28_regular,size: 25,color: Get.find<MainControoller>().navIndex.value==0?Stylings.accentBlue:Colors.white,),
+                          Icon(FluentIcons.home_28_regular,size: 25,color: Get.find<MainController>().navIndex.value==0?Stylings.accentBlue:Colors.white,),
                          const SizedBox(height: 5,),
-                          Text("Home",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainControoller>().navIndex.value==0?Stylings.accentBlue:Colors.white,),)
+                          Text("Home",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==0?Stylings.accentBlue:Colors.white,),)
                         ],
                       ),
                     ),
                     GestureDetector(
                       onTap: (){
-                        Get.find<MainControoller>().onTapNavItem(1);
+                        Get.find<MainController>().onTapNavItem(1);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(FluentIcons.heart_28_regular,size: 25,color: Get.find<MainControoller>().navIndex.value==1?Stylings.accentBlue:Colors.white,),
+                          Icon(FluentIcons.heart_28_regular,size: 25,color: Get.find<MainController>().navIndex.value==1?Stylings.accentBlue:Colors.white,),
                           const SizedBox(height: 5,),
-                          Text("Wishlist",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainControoller>().navIndex.value==1?Stylings.accentBlue:Colors.white,),)
+                          Text("Wishlist",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==1?Stylings.accentBlue:Colors.white,),)
                         ],
                       ),
                     ),
                     GestureDetector(
                       onTap: (){
-                        Get.find<MainControoller>().onTapNavItem(2);
+                        Get.find<MainController>().onTapNavItem(2);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(FluentIcons.search_28_regular,size: 25,color: Get.find<MainControoller>().navIndex.value==2?Stylings.accentBlue:Colors.white,),
+                          Icon(FluentIcons.search_28_regular,size: 25,color: Get.find<MainController>().navIndex.value==2?Stylings.accentBlue:Colors.white,),
                           const SizedBox(height: 5,),
-                          Text("Search",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainControoller>().navIndex.value==2?Stylings.accentBlue:Colors.white,),)
+                          Text("Search",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==2?Stylings.accentBlue:Colors.white,),)
                         ],
                       ),
                     ),
                     GestureDetector(
                       onTap: (){
-                        Get.find<MainControoller>().onTapNavItem(3);
+                        Get.find<MainController>().onTapNavItem(3);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(FluentIcons.cart_24_regular,size: 27,color: Get.find<MainControoller>().navIndex.value==3?Stylings.accentBlue:Colors.white,),
+                          Icon(FluentIcons.cart_24_regular,size: 27,color: Get.find<MainController>().navIndex.value==3?Stylings.accentBlue:Colors.white,),
                           const SizedBox(height: 5,),
-                          Text("Cart",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainControoller>().navIndex.value==3?Stylings.accentBlue:Colors.white,),)
+                          Text("Cart",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==3?Stylings.accentBlue:Colors.white,),)
                         ],
                       ),
                     ),
                     GestureDetector(
                       onTap: (){
-                        Get.find<MainControoller>().onTapNavItem(4);
+                        Get.find<MainController>().onTapNavItem(4);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Get.find<MainControoller>().navIndex.value==4?SizedBox(
+                          Get.find<MainController>().navIndex.value==4?SizedBox(
                             height: 23,
                             width: 23,
                             child: Image.asset("assets/images/avatar.png"),
@@ -344,7 +350,7 @@ class Homepage extends StatelessWidget {
                           ),
                         //  Icon(FluentIcons.person_28_regular,size: 25,color: Get.find<MainControoller>().navIndex.value==4?Stylings.accentBlue:Colors.white,),
                           const SizedBox(height: 5,),
-                          Text("Profile",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainControoller>().navIndex.value==4?Stylings.accentBlue:Colors.white,),)
+                          Text("Profile",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==4?Stylings.accentBlue:Colors.white,),)
                         ],
                       ),
                     ),

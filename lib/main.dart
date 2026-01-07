@@ -19,7 +19,7 @@ void main() async{
 }
 
 Future<void> initializeControllers() async {
-  await Get.put(MainControoller());
+  await Get.put(MainController());
   FlutterNativeSplash.remove();
 }
 

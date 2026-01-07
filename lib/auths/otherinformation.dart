@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../reusables/mybutton.dart';
-import '../server/getxserver.dart';
+import '../getxcontrollers/authcontroller.dart';
 import '../stylings.dart';
 
 
@@ -68,13 +68,13 @@ class _OtherinformationState extends State<Otherinformation> {
                        isExpanded: true,
                        borderRadius: BorderRadius.circular(10),
                        menuMaxHeight: Get.size.height * 0.4,
-                       value: Get.find<Bookax>().userUniversityId.value,
+                       value: Get.find<AuthController>().userUniversityId.value,
                        // iconEnabledColor: Stylings.brown,
                        iconSize: 15,
                        dropdownColor: Colors.white,
                        underline: const SizedBox(),
                        items: [
-                         ...Get.find<Bookax>().universities.map((aUni) {
+                         ...Get.find<AuthController>().universities.map((aUni) {
                            return DropdownMenuItem(
                                value: aUni.id,
                                child: Text(aUni.name,
@@ -82,8 +82,8 @@ class _OtherinformationState extends State<Otherinformation> {
                          })
                        ],
                        onChanged: (value) {
-                         Get.find<Bookax>().userUniversityId.value=value!.toString();
-                         Get.find<Bookax>().getDepartments(value.toString());
+                         Get.find<AuthController>().userUniversityId.value=value!.toString();
+                         Get.find<AuthController>().getDepartments(value.toString());
                        }),
                  ),),
                   const SizedBox(height: 20,),
@@ -102,13 +102,13 @@ class _OtherinformationState extends State<Otherinformation> {
                        isExpanded: true,
                        borderRadius: BorderRadius.circular(10),
                        menuMaxHeight: Get.size.height * 0.4,
-                       value: Get.find<Bookax>().userDepartment.value,
+                       value: Get.find<AuthController>().userDepartment.value,
                        // iconEnabledColor: Stylings.brown,
                        iconSize: 15,
                        dropdownColor: Colors.white,
                        underline: const SizedBox(),
                        items: [
-                         ...Get.find<Bookax>().departments.map((aDept) {
+                         ...Get.find<AuthController>().departments.map((aDept) {
                            return DropdownMenuItem(
                                value: aDept.name,
                                child: Text(aDept.name,
@@ -116,7 +116,7 @@ class _OtherinformationState extends State<Otherinformation> {
                          })
                        ],
                        onChanged: (value) {
-                         Get.find<Bookax>().userDepartment.value=value!.toString();
+                         Get.find<AuthController>().userDepartment.value=value!.toString();
                          // print(Get.find<Bookax>().userUniversityId.value);
                        }),
                  ),),
@@ -125,7 +125,7 @@ class _OtherinformationState extends State<Otherinformation> {
                   //level
                   TextFormField(
                     onChanged: (p) {
-                  p.isNotEmpty? Get.find<Bookax>().userLevel.value=int.parse(p):Get.find<Bookax>().userLevel.value=0;
+                  p.isNotEmpty? Get.find<AuthController>().userLevel.value=int.parse(p):Get.find<AuthController>().userLevel.value=0;
                     },
                     validator: (e){
                       if (e == null || e.isEmpty) {
@@ -152,7 +152,7 @@ class _OtherinformationState extends State<Otherinformation> {
                   //phone
                   TextFormField(
                     onChanged: (p) {
-                      Get.find<Bookax>().userPhoneNumber.value=p;
+                      Get.find<AuthController>().userPhoneNumber.value=p;
                     },
                     validator: (e){
                       if (e == null || e.isEmpty) {
@@ -182,7 +182,7 @@ class _OtherinformationState extends State<Otherinformation> {
 
                     if (_otherInfoKey.currentState?.validate() ?? false) {
                       //print("kkk");
-                     Get.find<Bookax>().createAccount();
+                     Get.find<AuthController>().createAccount();
                     }
                   }),
 

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:booka/server/getxserver.dart';
+import 'package:booka/getxcontrollers/authcontroller.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
@@ -21,7 +21,7 @@ class UserApiClient {
         'x-client-type': 'mobile',
         'Accept': 'application/json',
         // Add any other headers you need, e.g., authentication tokens
-        'Authorization': 'Bearer ${Get.find<Bookax>().userAccessToken}'
+        'Authorization': 'Bearer ${Get.find<AuthController>().userAccessToken}'
       };
 
       // Make the POST request
@@ -194,7 +194,7 @@ class UniversityApiClient {
         'Accept': 'application/json',
         'x-client-type': 'mobile',
         // Add any other headers you need, e.g., authentication tokens
-        'Authorization': 'Bearer ${Get.find<Bookax>().userAccessToken}'
+        'Authorization': 'Bearer ${Get.find<AuthController>().userAccessToken}'
       };
 
       // Make the POST request
@@ -228,7 +228,7 @@ class UniversityApiClient {
       // Make the GET request
       final response =
           await http.get(Uri.parse("$userBaseUrl/$endPoint"), headers: {
-            'Authorization': 'Bearer ${Get.find<Bookax>().userAccessToken}'
+            'Authorization': 'Bearer ${Get.find<AuthController>().userAccessToken}'
       });
       return response.body;
       // // Check the status code
@@ -382,7 +382,7 @@ class DepartmentApiClient {
         'Accept': 'application/json',
         'x-client-type': 'mobile',
         // Add any other headers you need, e.g., authentication tokens
-        'Authorization': 'Bearer ${Get.find<Bookax>().userAccessToken}'
+        'Authorization': 'Bearer ${Get.find<AuthController>().userAccessToken}'
       };
 
       // Make the POST request
@@ -416,7 +416,7 @@ class DepartmentApiClient {
       // Make the GET request
       final response =
           await http.get(Uri.parse("$userBaseUrl/$endPoint"), headers: {
-            'Authorization': 'Bearer ${Get.find<Bookax>().userAccessToken}'
+            'Authorization': 'Bearer ${Get.find<AuthController>().userAccessToken}'
       });
       return response.body;
       // // Check the status code
@@ -553,6 +553,193 @@ class DepartmentApiClient {
 //
 }
 
+class BooksApiClient {
+  String userBaseUrl =
+      "https://booka-vjrr.onrender.com/api/departments"; //base url
+  Future makePostRequest(
+      {required String endPoint,
+        required Map<String, dynamic> body,
+        String contentType = 'application/json'}) async {
+    try {
+      // Convert the body into JSON
+      String jsonBody = json.encode(body);
+
+      // Set headers
+      Map<String, String> headers = {
+        'Content-Type': contentType,
+        'Accept': 'application/json',
+        'x-client-type': 'mobile',
+        // Add any other headers you need, e.g., authentication tokens
+        'Authorization': 'Bearer ${Get.find<AuthController>().userAccessToken}'
+      };
+
+      // Make the POST request
+      final response = await http.post(
+        Uri.parse("$userBaseUrl/$endPoint"),
+        headers: headers,
+        body: jsonBody,
+      );
+      // Check the status code
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        // Map<String, dynamic> successReturnbody = jsonDecode(response.body);
+        // return successReturnbody;
+        return response.body;
+      } else {
+        // Map<String, dynamic> errorMessage = jsonDecode(response.body);
+        // return errorMessage;
+        return response.body;
+      }
+    } catch (e) {
+      // Map<String, dynamic> outOfScppeError = {
+      //   "e": "An error occurred, Please try again"
+      // };
+      // return outOfScppeError;
+      return "An error occured, Please try again";
+    }
+  }
+
+  //
+  Future makeGetRequest(String endPoint) async {
+    try {
+      // Make the GET request
+      final response =
+      await http.get(Uri.parse("$userBaseUrl/$endPoint"), headers: {
+        'Authorization': 'Bearer ${Get.find<AuthController>().userAccessToken}'
+      });
+      return response.body;
+      // // Check the status code
+      // if (response.statusCode == 200 || response.statusCode == 201) {
+      //   // Request successful
+      //   // print('Request successful');
+      //   // Parse the JSON response
+      //   // Map<String, dynamic> data = json.decode(response.body);
+      //   // return data;
+      //   return response.body;
+      // } else {
+      //   // Request failed
+      //   //print('Request failed with status code: ${response.statusCode}');
+      //   // print('Response body: ${response.body}');
+      //   // Map<String, dynamic> errorMessage = jsonDecode(response.body);
+      //   // return errorMessage;
+      //   return response.body;
+      // }
+
+    } catch (e) {
+      // Handle any errors
+      //  Get.find<Triventizx>().statusCode.value = 2;
+      // Map<String, dynamic> outOfScppeError = {"e": "An error occurred"};
+      // return outOfScppeError;
+
+      throw "Its our fault but please try again";
+    }
+  }
+
+  Future<dynamic> makePatchRequest(
+      {required String endPoint,
+        required Map<String, dynamic> body,
+        Map<String, String>? headers}) async {
+    try {
+      // Default headers
+      final defaultHeaders = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      };
+
+      // Set headers
+      Map<String, String> headers = {
+        'x-client-type': 'mobile',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        // Add any other headers you need, e.g., authentication tokens
+        //   'Authorization': 'Bearer ${Get.find<Triventizx>().userAccessToken}'
+      };
+
+      // Send PATCH request
+      final response = await http.patch(Uri.parse("$userBaseUrl/$endPoint"),
+          headers: headers, body: json.encode(body));
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Map<String, dynamic> successReturnbody = jsonDecode(response.body);
+        //  Get.find<Triventizx>().statusCode.value = 0;
+        return successReturnbody;
+      } else {
+        //print(response.body);
+        Map<String, dynamic> errorMessage = jsonDecode(response.body);
+        //    Get.find<Triventizx>().statusCode.value = 1;
+        return errorMessage;
+      }
+    } catch (e) {
+      //   Get.find<Triventizx>().statusCode.value = 2;
+      Map<String, dynamic> outOfScppeError = {"e": "An error occurred"};
+      return outOfScppeError;
+    }
+  }
+
+//
+//   Future<Map<String, dynamic>> makePatchRequest(String url, Map<String, dynamic> body,) async {
+//     try {
+//       Map<String, String> headers = {
+//         'Accept': 'application/json',
+//         "Content-Type": "application/json",
+//         // Add any other headers you need, e.g., authentication tokens
+//         'Authorization': 'Bearer ${Get.find<Jollofx>().userTokens["accessToken"]}',
+//       };
+//
+//       final response = await http.patch(
+//         Uri.parse(url),
+//         body: jsonEncode(body),
+//         headers: headers,
+//       );
+//      //print(response.statusCode);
+//
+//       if (response.statusCode == 200) {
+//         Get.find<Jollofx>().statusCode.value = 0;
+//         Map<String,dynamic>  reply=jsonDecode(response.body);
+//        // print(reply);
+//         return reply;
+//       } else {
+//         //print('Error making PATCH request: ${response.statusCode}');
+//         Get.find<Jollofx>().statusCode.value = 1;
+//         return {"1":"@"};
+//       }
+//     } catch (e) {
+//       Get.find<Jollofx>().statusCode.value = 2;
+//       //print('Exception during PATCH request: $e');
+//       return {"2":"@"};
+//     }
+//   }
+//
+//   Future<Map<String, dynamic>> makePutRequest(String url,String id) async {
+//     final formedUrl = '$url/$id';
+//
+//     final headers = {
+//       'Content-Type': 'application/json',
+//       'Authorization': 'Bearer ${Get.find<Jollofx>().userTokens["accessToken"]}',
+//     };
+//
+//     try {
+//       final response = await http.put(Uri.parse(formedUrl), headers: headers);
+//
+//       if (response.statusCode == 200) {
+//         Map<String, dynamic> returned = jsonDecode(response.body);
+//         Get.find<Jollofx>().statusCode.value = 0;
+//         //print('Resource updated successfully');
+//         //print('Response: ${response.body}');
+//         return returned;
+//       } else {
+//         Get.find<Jollofx>().statusCode.value = 1;
+//        // print('Failed to update resource. Status code: ${response.statusCode}');
+//         //print('Response: ${response.body}');
+//         return {};
+//       }
+//     } catch (e) {
+//       Get.find<Jollofx>().statusCode.value = 2;
+//      // print('Error occurred: $e');
+//       return {};
+//     }
+//   }
+//
+}
 // class EventApiClient {
 //   String eventBaseUrl =
 //       //"https://syasf93cr4.execute-api.eu-north-1.amazonaws.com"; //base url

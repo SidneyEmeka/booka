@@ -17,10 +17,10 @@ import 'package:intl/intl.dart';
 import '../models/departmentmodel.dart';
 import '../models/universitymodel.dart';
 import '../models/usermodel.dart';
-import 'apiclient.dart';
+import '../server/apiclient.dart';
 
 
-class Bookax extends GetxController {
+class AuthController extends GetxController {
 
   @override
   void onInit() {
@@ -28,75 +28,6 @@ class Bookax extends GetxController {
     mountRefreshTimer();
   }
 
-
-  var obscure = true.obs;
-
-  //date formatter to how mamny days or hours ago
-  getRelativeTime(String isoString) {
-    // Parse the ISO 8601 string to DateTime
-    DateTime dateTime = DateTime.parse(isoString);
-
-    // Get the current time
-    DateTime now = DateTime.now().toUtc();
-
-    // Calculate the difference
-    Duration difference = now.difference(dateTime);
-
-    if (difference.inDays > 365) {
-      return "${difference.inDays ~/ 365} ${difference.inDays ~/ 365 == 1 ? 'year' : 'years'} ago";
-    } else if (difference.inDays > 30) {
-      return "${difference.inDays ~/ 30} ${difference.inDays ~/ 30 == 1 ? 'month' : 'months'} ago";
-    } else if (difference.inDays > 0) {
-      return "${difference.inDays} ${difference.inDays == 1 ? 'day' : 'days'} ago";
-    } else if (difference.inHours > 0) {
-      return "${difference.inHours} ${difference.inHours == 1 ? 'hour' : 'hours'} ago";
-    } else if (difference.inMinutes > 0) {
-      return "${difference.inMinutes} ${difference.inMinutes == 1 ? 'minute' : 'minutes'} ago";
-    } else {
-      return "just now";
-    }
-  }
-
-  //date formaterr to dd/mm/yy
-  dateFormat(String theDate) {
-    String dateTimeString = theDate;
-    DateTime dateTime = DateTime.parse(dateTimeString);
-
-    // Create a DateFormat object with the desired format
-    DateFormat formatter = DateFormat('EEEE, MMMM d');
-
-    // Format the date and time
-    String formattedDateTime = formatter.format(dateTime);
-    return formattedDateTime;
-    // print(formattedDateTime);
-  }
-
-
-  //Toast
-
-
-
-  // emailInputFormatter() {
-  //   if (userEmail.isEmpty) {
-  //     bIsActive.value = false;
-  //   } else if (!userEmail.contains("@") ||
-  //       !userEmail.contains(".") ||
-  //       userEmail.contains(" ")) {
-  //     bIsActive.value = false;
-  //   } else {
-  //     bIsActive.value = true;
-  //   }
-  // }
-
-
-
-
-
-
-  var isLoading = false.obs;
-  //var statusCode = 0.obs;
-
-  var registerErrorText = "".obs;
 
   ///Auths Locale////
   var universities = [].obs;
@@ -124,7 +55,6 @@ class Bookax extends GetxController {
     });
   }
 
-
   var departments = [].obs;
 
   getDepartments(String deptID){
@@ -147,7 +77,6 @@ class Bookax extends GetxController {
           colorText: Colors.white);
     });
   }
-
 
   var userUsername = "".obs;
   var userEmail = "".obs;
@@ -260,6 +189,8 @@ class Bookax extends GetxController {
 
   }
 
+
+
 ///REFRESH TOKEN///
  Worker? _refreshWorker;
   Timer? _refreshTimer;
@@ -285,11 +216,12 @@ class Bookax extends GetxController {
       }
       else{
         Get.offAll(()=>LogIn());
-       // print("failed ${decodedResponse['message']}");
+        print(decodedResponse);
+        print("ref failed ${decodedResponse['message']}");
       }
     }).catchError((e){
       Get.offAll(()=>LogIn());
-      //print("failed $e");
+      print("ref catch $e");
 
     });
   }
