@@ -127,7 +127,7 @@ class _SignUpPageState extends State<SignUpPage> {
                      validator: (e){
                        final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
                        if (e == null || e.isEmpty) {
-                        return "Email cannot be Empty";
+                        return "Email cannot be empty";
                        }
                       else if (!emailRegex.hasMatch(e)) {
                           return "Please enter a valid email";
@@ -179,10 +179,12 @@ class _SignUpPageState extends State<SignUpPage> {
                   const SizedBox(height: 20,),
                   //Sign up button
                    Mybutton(bText: "Sign Up", toDo: () {
+
                      if (_signUpKey.currentState?.validate() ?? false) {
 
                        Get.find<Bookax>().getUniversities();
                      }
+
                    },),
 
 

@@ -1,6 +1,7 @@
 import 'package:booka/reusables/loadingpage.dart';
 import 'package:booka/splash_screen.dart';
 import 'package:booka/stylings.dart';
+import 'package:booka/verifyemail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
@@ -64,8 +65,8 @@ class MyApp extends StatelessWidget {
           scrolledUnderElevation: 0
         )
       ),
-       home: const Onboarding(),
-      //home: Loadingpage(doingWhat: "Creating your account", persist: true.obs, whatNext: (){Get.to(()=>Onboarding());},),
+      home: const Onboarding(),
+     //home: Verifyemail(),
     );
   }
 }

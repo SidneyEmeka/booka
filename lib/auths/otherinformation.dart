@@ -62,6 +62,12 @@ class _OtherinformationState extends State<Otherinformation> {
                       if (e == null || e.isEmpty) {
                         return "Phone number is required";
                       }
+                      else if (e.length < 10) {
+                        return "Phone number must be at least 10 digits long";
+                      }
+                      else if (e.length > 11) {
+                      return "Phone number must not exceed 11 digits";
+                      }
                       return null;
                     },
                     style: Stylings.bodyRegularMedium.copyWith(
@@ -76,72 +82,87 @@ class _OtherinformationState extends State<Otherinformation> {
                   ),
                   const SizedBox(height: 20,),
                   //University
-                  Container(
+                 Obx(()=> Container(
                    // margin: const EdgeInsets.only(top: 8),
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                       // border: Border.all(color: Stylings.brown)
-                    ),
-                    child: DropdownButton(
-                        alignment: Alignment.center,
-                        isExpanded: true,
-                        borderRadius: BorderRadius.circular(10),
-                        menuMaxHeight: Get.size.height * 0.2,
-                        value: Get.find<Bookax>().userUniversityId.value,
+                   padding: const EdgeInsets.symmetric(horizontal: 10),
+                   decoration: BoxDecoration(
+                     color: Colors.white,
+                     borderRadius: BorderRadius.circular(8),
+                     // border: Border.all(color: Stylings.brown)
+                   ),
+                   child: DropdownButton(
+                       alignment: Alignment.center,
+                       isExpanded: true,
+                       borderRadius: BorderRadius.circular(10),
+                       menuMaxHeight: Get.size.height * 0.4,
+                       value: Get.find<Bookax>().userUniversityId.value,
                        // iconEnabledColor: Stylings.brown,
-                        iconSize: 15,
-                        dropdownColor: Colors.white,
-                        underline: const SizedBox(),
-                        items: [
-                          ...Get.find<Bookax>().universities.map((aUni) {
-                            return DropdownMenuItem(
-                                value: aUni.id,
-                                child: Text(aUni.name,
-                                    style: Stylings.bodyMediumLarge.copyWith(color: Colors.black)));
-                          })
-                        ],
-                        onChanged: (value) {
-                          Get.find<Bookax>().userUniversityId.value=value!.toString();
-                         // print(Get.find<Bookax>().userUniversityId.value);
-                        }),
-                  ),
+                       iconSize: 15,
+                       dropdownColor: Colors.white,
+                       underline: const SizedBox(),
+                       items: [
+                         ...Get.find<Bookax>().universities.map((aUni) {
+                           return DropdownMenuItem(
+                               value: aUni.id,
+                               child: Text(aUni.name,
+                                   style: Stylings.bodyMediumLarge.copyWith(color: Colors.black)));
+                         })
+                       ],
+                       onChanged: (value) {
+                         Get.find<Bookax>().userUniversityId.value=value!.toString();
+                         Get.find<Bookax>().getDepartments(value.toString());
+                       }),
+                 ),),
                   const SizedBox(height: 20,),
 
                   //Department
-                  SizedBox(
-                    height: Get.height * 0.055,
-                    child: TextFormField(
-                      onTap: () {
-
-                      },
-                      onChanged: (p) {
-
-                      },
-                      style: Stylings.bodyRegularMedium.copyWith(
-                          color: const Color(0xFF222222)),
-                      keyboardType: TextInputType.name,
-                      cursorColor: Colors.grey.shade500,
-                      cursorHeight: 15,
-                      cursorWidth: 1,
-                      decoration: const InputDecoration(
-                        hintText: "Department",
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 30,),
+                 Obx(()=> Container(
+                   // margin: const EdgeInsets.only(top: 8),
+                   padding: const EdgeInsets.symmetric(horizontal: 10),
+                   decoration: BoxDecoration(
+                     color: Colors.white,
+                     borderRadius: BorderRadius.circular(8),
+                     // border: Border.all(color: Stylings.brown)
+                   ),
+                   child: DropdownButton(
+                       alignment: Alignment.center,
+                       isExpanded: true,
+                       borderRadius: BorderRadius.circular(10),
+                       menuMaxHeight: Get.size.height * 0.4,
+                       value: Get.find<Bookax>().userDepartment.value,
+                       // iconEnabledColor: Stylings.brown,
+                       iconSize: 15,
+                       dropdownColor: Colors.white,
+                       underline: const SizedBox(),
+                       items: [
+                         ...Get.find<Bookax>().departments.map((aDept) {
+                           return DropdownMenuItem(
+                               value: aDept.name,
+                               child: Text(aDept.name,
+                                   style: Stylings.bodyMediumLarge.copyWith(color: Colors.black)));
+                         })
+                       ],
+                       onChanged: (value) {
+                         Get.find<Bookax>().userDepartment.value=value!.toString();
+                         // print(Get.find<Bookax>().userUniversityId.value);
+                       }),
+                 ),),
+                  const SizedBox(height: 20,),
 
                   //level
                   TextFormField(
                     onChanged: (p) {
-                      Get.find<Bookax>().userDepartment.value=p;
+                  p.isNotEmpty? Get.find<Bookax>().userLevel.value=int.parse(p):Get.find<Bookax>().userLevel.value=0;
                     },
                     validator: (e){
                       if (e == null || e.isEmpty) {
-                        return "Please enter your current level";
+                        return "Please enter your current level is required";
+                      }
+                      else if(e!="100"&&e!="200"&&e!="300"&&e!="400"&&e!="500"&&e!="600"&&e!="700"&&e!="800"){
+                        return "Please enter a valid level";
                       }
                       return null;
+
                     },
                     style: Stylings.bodyRegularMedium.copyWith(
                         color: const Color(0xFF222222)),
@@ -156,11 +177,11 @@ class _OtherinformationState extends State<Otherinformation> {
                   const SizedBox(height: 30,),
 
                   Mybutton(bText: "Continue",toDo: (){
-                    Get.find<Bookax>().getUniversities();
-                    // if (_otherInfoKey.currentState?.validate() ?? false) {
-                    //   // All valid - proceed
-                    //   Get.to(()=>const Otherinformation());
-                    // }
+
+                    if (_otherInfoKey.currentState?.validate() ?? false) {
+                      //print("kkk");
+                     Get.find<Bookax>().createAccount();
+                    }
                   }),
 
 
