@@ -1,3 +1,4 @@
+import 'package:booka/auths/log_in.dart';
 import 'package:booka/reusables/mybutton.dart';
 import 'package:booka/stylings.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -20,20 +21,22 @@ class Verifyemail extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Spacer(),
+              const Spacer(),
 
               Text("Account Verification",style: Stylings.displaySemiBold.copyWith(color: Stylings.accentBlue),),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text("Your Booka account is ready. Verify your email address to Sign in",style: Stylings.displaySemiBoldSmall,textAlign: TextAlign.center,),
               //  Image.asset("assets/images/success.png"),
-              Spacer(flex: 2,),
+              const Spacer(flex: 2,),
 
               Icon(FluentIcons.mail_32_regular,color: Colors.white,size: Get.height*0.3,),
               Text("Kindly check your mail to verify your email address",style: Stylings.displaySemiBoldSmall,textAlign: TextAlign.center,),
-              Spacer(flex: 2,),
+              const Spacer(flex: 2,),
 
-              Mybutton(bText: "Proceed to Sign in", toDo: (){},),
-              Spacer(),
+              Mybutton(bText: "Proceed to Sign in", toDo: (){
+                Get.offAll(()=>const LogIn());
+              },),
+              const Spacer(),
 
             ],
           ),

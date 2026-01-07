@@ -5,11 +5,18 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../reusables/mybutton.dart';
+import '../server/getxserver.dart';
 import '../stylings.dart';
 
-class LogIn extends StatelessWidget {
+class LogIn extends StatefulWidget {
   const LogIn({super.key});
 
+  @override
+  State<LogIn> createState() => _LogInState();
+}
+
+class _LogInState extends State<LogIn> {
+  final _loginkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,56 +88,78 @@ class LogIn extends StatelessWidget {
                   SizedBox(height: Get.height*0.03,),
 
 
-                  //Email/Phone
-                  SizedBox(
-                    height: Get.height * 0.055,
-                    child: TextFormField(
-                      onTap: () {
-
-                      },
-                      onChanged: (p) {
-
-                      },
-                      style: Stylings.bodyRegularMedium.copyWith(
-                          color: const Color(0xFF222222)),
-                      keyboardType: TextInputType.emailAddress,
-                      cursorColor: Colors.grey.shade500,
-                      cursorHeight: 15,
-                      cursorWidth: 1,
-                      decoration: const InputDecoration(
-                        hintText: "Email or phone number",
+                  Form(
+                      key: _loginkey,
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      //Email
+                      TextFormField(
+                        onChanged: (p) {
+                          Get.find<Bookax>().loginEmail.value=p;
+                        },
+                        validator: (e){
+                          final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                          if (e == null || e.isEmpty) {
+                            return "Email cannot be empty";
+                          }
+                          else if (!emailRegex.hasMatch(e)) {
+                            return "Please enter a valid email";
+                          }
+                          return null;
+                        },
+                        style: Stylings.bodyRegularMedium.copyWith(
+                            color: const Color(0xFF222222)),
+                        keyboardType: TextInputType.emailAddress,
+                        cursorColor: Colors.grey.shade500,
+                        cursorHeight: 15,
+                        cursorWidth: 1,
+                        decoration: const InputDecoration(
+                          hintText: "Email",
+                        ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 20,),
-                  //password
-                  SizedBox(
-                    height: Get.height * 0.055,
-                    child: TextFormField(
-                      onTap: () {
-
-                      },
-                      onChanged: (p) {
-
-                      },
-                      style: Stylings.bodyRegularMedium.copyWith(
-                          color: const Color(0xFF222222)),
-                      keyboardType: TextInputType.name,
-                      cursorColor: Colors.grey.shade500,
-                      cursorHeight: 15,
-                      cursorWidth: 1,
-                      decoration: const InputDecoration(
-                        hintText: "Password",
+                      const SizedBox(height: 20,),
+                      //password
+                      TextFormField(
+                        onChanged: (p) {
+                          Get.find<Bookax>().loginPassword.value=p;
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Password is required';
+                          }
+                          final passwordRegex = RegExp(r'^(?=.*[0-9]).{8,}$');
+                          if (!passwordRegex.hasMatch(value)) {
+                            return 'Password must be at least 8 characters and contain a number';
+                          }
+                          return null;
+                        },
+                        style: Stylings.bodyRegularMedium.copyWith(
+                            color: const Color(0xFF222222)),
+                        keyboardType: TextInputType.emailAddress,
+                        cursorColor: Colors.grey.shade500,
+                        cursorHeight: 15,
+                        cursorWidth: 1,
+                        decoration: const InputDecoration(
+                          hintText: "Password",
+                        ),
                       ),
-                    ),
-                  ),
+                    ],
+                  )),
 
 
 
 
                   const SizedBox(height: 20,),
                   //Sign up button
-                   Mybutton(bText: "Log in", toDo: () { Get.to(()=>Homepage()); },),
+                   Mybutton(bText: "Log in", toDo: () {
+                     if (_loginkey.currentState?.validate() ?? false) {
+
+                       Get.find<Bookax>().loginAccount();
+                     }
+                   },),
                   SizedBox(height: Get.height*0.03,),
 
                   Padding(

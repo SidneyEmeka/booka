@@ -18,6 +18,7 @@ class UserApiClient {
       // Set headers
       Map<String, String> headers = {
         'Content-Type': contentType,
+        'x-client-type': 'mobile',
         'Accept': 'application/json',
         // Add any other headers you need, e.g., authentication tokens
         'Authorization': 'Bearer ${Get.find<Bookax>().userAccessToken}'
@@ -82,6 +83,7 @@ class UserApiClient {
 
       // Set headers
       Map<String, String> headers = {
+        'x-client-type': 'mobile',
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         // Add any other headers you need, e.g., authentication tokens
@@ -190,6 +192,7 @@ class UniversityApiClient {
       Map<String, String> headers = {
         'Content-Type': contentType,
         'Accept': 'application/json',
+        'x-client-type': 'mobile',
         // Add any other headers you need, e.g., authentication tokens
         'Authorization': 'Bearer ${Get.find<Bookax>().userAccessToken}'
       };
@@ -270,6 +273,7 @@ class UniversityApiClient {
       Map<String, String> headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
+        'x-client-type': 'mobile',
         // Add any other headers you need, e.g., authentication tokens
         //   'Authorization': 'Bearer ${Get.find<Triventizx>().userAccessToken}'
       };
@@ -376,6 +380,7 @@ class DepartmentApiClient {
       Map<String, String> headers = {
         'Content-Type': contentType,
         'Accept': 'application/json',
+        'x-client-type': 'mobile',
         // Add any other headers you need, e.g., authentication tokens
         'Authorization': 'Bearer ${Get.find<Bookax>().userAccessToken}'
       };
@@ -454,6 +459,7 @@ class DepartmentApiClient {
 
       // Set headers
       Map<String, String> headers = {
+        'x-client-type': 'mobile',
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         // Add any other headers you need, e.g., authentication tokens

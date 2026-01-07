@@ -53,34 +53,7 @@ class _OtherinformationState extends State<Otherinformation> {
                   ),
                   SizedBox(height: Get.height*0.03,),
 
-                  //phone
-                  TextFormField(
-                    onChanged: (p) {
-                      Get.find<Bookax>().userPhoneNumber.value=p;
-                    },
-                    validator: (e){
-                      if (e == null || e.isEmpty) {
-                        return "Phone number is required";
-                      }
-                      else if (e.length < 10) {
-                        return "Phone number must be at least 10 digits long";
-                      }
-                      else if (e.length > 11) {
-                      return "Phone number must not exceed 11 digits";
-                      }
-                      return null;
-                    },
-                    style: Stylings.bodyRegularMedium.copyWith(
-                        color: const Color(0xFF222222)),
-                    keyboardType: TextInputType.number,
-                    cursorColor: Colors.grey.shade500,
-                    cursorHeight: 15,
-                    cursorWidth: 1,
-                    decoration: const InputDecoration(
-                      hintText: "Phone number",
-                    ),
-                  ),
-                  const SizedBox(height: 20,),
+
                   //University
                  Obx(()=> Container(
                    // margin: const EdgeInsets.only(top: 8),
@@ -158,7 +131,7 @@ class _OtherinformationState extends State<Otherinformation> {
                       if (e == null || e.isEmpty) {
                         return "Please enter your current level is required";
                       }
-                      else if(e!="100"&&e!="200"&&e!="300"&&e!="400"&&e!="500"&&e!="600"&&e!="700"&&e!="800"){
+                      else if(e!="100"&&e!="200"&&e!="300"&&e!="400"&&e!="500"&&e!="600"){
                         return "Please enter a valid level";
                       }
                       return null;
@@ -174,7 +147,36 @@ class _OtherinformationState extends State<Otherinformation> {
                       hintText: "Level",
                     ),
                   ),
-                  const SizedBox(height: 30,),
+                  const SizedBox(height: 20,),
+
+                  //phone
+                  TextFormField(
+                    onChanged: (p) {
+                      Get.find<Bookax>().userPhoneNumber.value=p;
+                    },
+                    validator: (e){
+                      if (e == null || e.isEmpty) {
+                        return "Phone number is required";
+                      }
+                      else if (e.length < 10) {
+                        return "Phone number must be at least 10 digits long";
+                      }
+                      else if (e.length > 11) {
+                        return "Phone number must not exceed 11 digits";
+                      }
+                      return null;
+                    },
+                    style: Stylings.bodyRegularMedium.copyWith(
+                        color: const Color(0xFF222222)),
+                    keyboardType: TextInputType.number,
+                    cursorColor: Colors.grey.shade500,
+                    cursorHeight: 15,
+                    cursorWidth: 1,
+                    decoration: const InputDecoration(
+                      hintText: "Phone number",
+                    ),
+                  ),
+                  const SizedBox(height:30,),
 
                   Mybutton(bText: "Continue",toDo: (){
 
