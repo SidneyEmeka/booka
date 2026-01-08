@@ -122,7 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
                    //Email
                    TextFormField(
                      onChanged: (p) {
-                       Get.find<AuthController>().userEmail.value=p;
+                       Get.find<AuthController>().userEmail.value=p.trim();
                      },
                      validator: (e){
                        final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
@@ -148,7 +148,7 @@ class _SignUpPageState extends State<SignUpPage> {
                    //password
                    TextFormField(
                      onChanged: (p) {
-                       Get.find<AuthController>().userPassword.value=p;
+                       Get.find<AuthController>().userPassword.value=p.trim();
                      },
                        validator: (value) {
                          if (value == null || value.isEmpty) {

@@ -42,10 +42,15 @@ class AuthController extends GetxController {
         getDepartments("fbb16e26-bc11-477c-86c1-4fc2744ea01d"); //for unn as default
        // Get.off(()=>Otherinformation());
       }
-      else{
+      else if(decodedResponse['success']==false){
         Get.off(()=>const SignUpPage());
       //  print("fail ${u}");
         Get.snackbar("Oops!", "${decodedResponse['message']}",duration: const Duration(seconds: 5),colorText: Colors.white,);
+      }
+      else{
+        Get.off(()=>const SignUpPage());
+        //  print("fail ${u}");
+        Get.snackbar("Oops!", "We are experiencing a downtime. Please try again",duration: const Duration(seconds: 5),colorText: Colors.white,);
       }
     }).catchError((e){
     //  print("catch $e}");
@@ -66,10 +71,15 @@ class AuthController extends GetxController {
         departments.value = departmentModel.data.departments;
         Get.off(()=>const Otherinformation());
       }
-      else{
+      else if (decodedResponse['success']==false){
         Get.off(()=>const SignUpPage());
-        print("fail $u");
+       // print("fail $u");
         Get.snackbar("Oops!", "${decodedResponse['message']}",duration: const Duration(seconds: 5),colorText: Colors.white,);
+      }
+      else{
+      Get.off(()=>const SignUpPage());
+      //  print("fail ${u}");
+      Get.snackbar("Oops!", "We are experiencing a downtime. Please try again",duration: const Duration(seconds: 5),colorText: Colors.white,);
       }
     }).catchError((e){
       Get.off(()=>const SignUpPage());
@@ -113,10 +123,16 @@ class AuthController extends GetxController {
         var decodedResponse = jsonDecode(c);
         if (decodedResponse['success']==true) {
           Get.offAll(()=>const Verifyemail());
-        } else {
+        }
+        else if (decodedResponse['success']==false){
           print("${decodedResponse['message']}");
           Get.snackbar("Oops!", "${decodedResponse['message']}",duration: const Duration(seconds: 5),colorText: Colors.white,);
           Get.offAll(()=>const SignUpPage());
+        }
+        else{
+        Get.offAll(()=>const SignUpPage());
+        //  print("fail ${u}");
+        Get.snackbar("Oops!", "We are experiencing a downtime. Please try again",duration: const Duration(seconds: 5),colorText: Colors.white,);
         }
       }).catchError((e){
         Get.snackbar("Something Happened", "$e",
@@ -176,9 +192,15 @@ class AuthController extends GetxController {
         userRefreshToken.value = userModelTokens.refreshToken;
 
         Get.offAll(()=>const Homepage());
-      } else {
+      }
+      else if (decodedResponse['success']==false){
         Get.snackbar("Oops!", "${decodedResponse['message']}",duration: const Duration(seconds: 5),colorText: Colors.white,);
         Get.offAll(()=>const LogIn());
+      }
+      else{
+      Get.offAll(()=>const LogIn());
+      //  print("fail ${u}");
+      Get.snackbar("Oops!", "We are experiencing a downtime. Please try again",duration: const Duration(seconds: 5),colorText: Colors.white,);
       }
     }).catchError((e){
       print(e);

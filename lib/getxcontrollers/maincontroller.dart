@@ -3,6 +3,8 @@ import 'package:booka/getxcontrollers/bookscontroller.dart';
 import 'package:booka/homes/homepage.dart';
 import 'package:booka/homes/profile/profile.dart';
 import 'package:booka/reusables/loadingpage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -59,12 +61,12 @@ class MainController extends GetxController{
   }
 
   var navIndex = 0.obs;
-  onTapNavItem(int tappedIndex) {
+  onTapNavItem(int tappedIndex, BuildContext context) {
     navIndex.value = tappedIndex;
 
     //navigate
     switch (navIndex.value) {
-      case 0: return Get.to(()=>Homepage());
+      case 0: return  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Homepage()),(route)=>false);
       case 1: return Get.to(()=>Loadingpage(doingWhat: '1 page',));
       case 2: return Get.to(()=>Loadingpage(doingWhat: '2 page',));
       case 3: return Get.to(()=>Loadingpage(doingWhat: '3 page',));

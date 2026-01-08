@@ -65,8 +65,7 @@ class UserApiClient {
     } catch (e) {
       // Handle any errors
       //  Get.find<Triventizx>().statusCode.value = 2;
-      Map<String, dynamic> outOfScppeError = {"e": "An error occurred"};
-      return outOfScppeError;
+      throw "Its our fault but please try again";
     }
   }
 
@@ -218,7 +217,7 @@ class UniversityApiClient {
       //   "e": "An error occurred, Please try again"
       // };
       // return outOfScppeError;
-      return "An error occured, Please try again";
+      throw "Its our fault but please try again";
     }
   }
 
@@ -406,7 +405,7 @@ class DepartmentApiClient {
       //   "e": "An error occurred, Please try again"
       // };
       // return outOfScppeError;
-      return "An error occured, Please try again";
+      throw "Its our fault but please try again";
     }
   }
 
@@ -482,8 +481,7 @@ class DepartmentApiClient {
       }
     } catch (e) {
       //   Get.find<Triventizx>().statusCode.value = 2;
-      Map<String, dynamic> outOfScppeError = {"e": "An error occurred"};
-      return outOfScppeError;
+      throw "Its our fault but please try again";
     }
   }
 
@@ -555,7 +553,7 @@ class DepartmentApiClient {
 
 class BooksApiClient {
   String userBaseUrl =
-      "https://booka-vjrr.onrender.com/api/departments"; //base url
+      "https://booka-vjrr.onrender.com/api/books"; //base url
   Future makePostRequest(
       {required String endPoint,
         required Map<String, dynamic> body,
@@ -594,7 +592,7 @@ class BooksApiClient {
       //   "e": "An error occurred, Please try again"
       // };
       // return outOfScppeError;
-      return "An error occured, Please try again";
+      throw "Its our fault but please try again";
     }
   }
 
@@ -670,8 +668,7 @@ class BooksApiClient {
       }
     } catch (e) {
       //   Get.find<Triventizx>().statusCode.value = 2;
-      Map<String, dynamic> outOfScppeError = {"e": "An error occurred"};
-      return outOfScppeError;
+      throw "Its our fault but please try again";
     }
   }
 

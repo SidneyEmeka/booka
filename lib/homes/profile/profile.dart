@@ -31,7 +31,7 @@ class Profile extends StatelessWidget {
         canPop: false,
         onPopInvoked: (didPop){
           if(!didPop){
-            Get.find<MainController>().onTapNavItem(0);
+            Get.find<MainController>().onTapNavItem(0,context);
           }
         },
         child: Obx(()=>Container(

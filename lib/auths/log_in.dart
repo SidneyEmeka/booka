@@ -98,7 +98,7 @@ class _LogInState extends State<LogIn> {
                       //Email
                       TextFormField(
                         onChanged: (p) {
-                          Get.find<AuthController>().loginEmail.value=p;
+                          Get.find<AuthController>().loginEmail.value=p.trim();
                         },
                         validator: (e){
                           final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
@@ -124,7 +124,7 @@ class _LogInState extends State<LogIn> {
                       //password
                       TextFormField(
                         onChanged: (p) {
-                          Get.find<AuthController>().loginPassword.value=p;
+                          Get.find<AuthController>().loginPassword.value=p.trim();
                         },
                         validator: (value) {
                           if (value == null || value.isEmpty) {

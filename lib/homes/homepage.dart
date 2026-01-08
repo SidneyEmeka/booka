@@ -1,5 +1,6 @@
 import 'package:booka/checkout/cart.dart';
 import 'package:booka/getxcontrollers/authcontroller.dart';
+import 'package:booka/getxcontrollers/bookscontroller.dart';
 import 'package:booka/homes/profile/profile.dart';
 import 'package:booka/reusables/bookcard.dart';
 import 'package:booka/reusables/booktile.dart';
@@ -9,16 +10,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../getxcontrollers/maincontroller.dart';
 import '../stylings.dart';
 
-class Homepage extends StatelessWidget {
+class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
+  @override
+  State<Homepage> createState() => _HomepageState();
+}
 
+class _HomepageState extends State<Homepage> {
+@override
+  void initState() {
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    Get.find<BooksController>().getRecomendedBooks();
+  });
 
-
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,107 +158,137 @@ class Homepage extends StatelessWidget {
       //   ),
       // ),
       body: Obx(()=> Container(
-        width: Get.width,
+        width: Get.width ,
         height: Get.height,
         margin: const EdgeInsets.symmetric(horizontal: 20),
         child: Stack(
           children: [
-           ListView(
-             children: [
-               SizedBox(height: Get.height*0.03),
-               Text("Welcome, ${Get.find<AuthController>().userData["name"]}",style: Stylings.displaySemiBoldMedium.copyWith(color: Stylings.accentBlue),),
-               SizedBox(height: Get.height*0.02),
-               Container(
-                 width: Get.width,
-                 padding: const EdgeInsets.symmetric(horizontal: 4,vertical: 3),
-                 decoration: BoxDecoration(
-                   color: const Color(0xFF1F6193),
-                   borderRadius: BorderRadius.circular(5)
-                 ),
-                 child: Row(
-                   mainAxisAlignment: MainAxisAlignment.start,
-                   crossAxisAlignment: CrossAxisAlignment.center,
-                   children: [
-                     Expanded(
-                       child: Container(
-                         alignment: const Alignment(-1, 0),
-                         padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8),
-                         width: Get.width,
-                         decoration: BoxDecoration(
-                             color: Colors.white,
-                             borderRadius: BorderRadius.circular(7)
-                         ),
-                         child: Text("Find books by course or title",style: Stylings.bodyMediumLarger.copyWith(color: Stylings.bgColor.withOpacity(0.6)),),
-                       ),
-                     ),
-                     const SizedBox(width: 10,),
-                     const Icon(Icons.search,color: Colors.white,size: 25,)
-                   ],
-                 ),
-               ),
-               //recents
-               Padding(padding: const EdgeInsets.symmetric(vertical: 15,),
-               child: Text("Recently searched",style: Stylings.bodyMediumLargest.copyWith(color: const Color(0xFFD9D9D9)),),),
-               SingleChildScrollView(
-                 scrollDirection: Axis.horizontal,
-                 physics: const BouncingScrollPhysics(),
-                 child: Row(
-                   children: [
-                     GestureDetector(
-                         onTap: (){
-                           Clipboard.setData(ClipboardData(text: "${Get.find<AuthController>().userAccessToken}"));
-                         },
-                         child: Bookcard()),
-                     const Bookcard(),
-                     const Bookcard(),
-                     const Bookcard(),
-                     const Bookcard(),
-                     const Bookcard(),
-                     const Bookcard(),
-                     const Bookcard(),
-                     const Bookcard(),
-                     const Bookcard(),
-                     const Bookcard(),
-                     const Bookcard(),
-                     const Bookcard(),
-                   ],
-                 ),
-               ),
-               //tops
-               Padding(padding: const EdgeInsets.symmetric(vertical: 15,),
-                 child: Text("Top Picks",style: Stylings.bodyMediumLargest.copyWith(color: const Color(0xFFD9D9D9)),),),
-               SingleChildScrollView(
-                 scrollDirection: Axis.vertical,
-                 physics: const BouncingScrollPhysics(),
-                 child: Padding(
-                   padding: EdgeInsets.only(bottom: Get.height*0.1,),
-                   child: const Column(
+           LiquidPullToRefresh(
+             onRefresh: ()async{
+             await  Get.find<BooksController>().getRecomendedBooks();
+             },
+             color: Stylings.bgColor,
+             backgroundColor: Stylings.accentBlue,
+             animSpeedFactor: 1,
+             height: 120,
+             springAnimationDurationInMilliseconds: 700,
+             showChildOpacityTransition: false,
+             child: ListView(
+               children: [
+                 SizedBox(height: Get.height*0.03),
+                 Text("Welcome, ${Get.find<AuthController>().userData["name"]}",style: Stylings.displaySemiBoldMedium.copyWith(color: Stylings.accentBlue),),
+                 SizedBox(height: Get.height*0.02),
+                 Container(
+                   width: Get.width,
+                   padding: const EdgeInsets.symmetric(horizontal: 4,vertical: 3),
+                   decoration: BoxDecoration(
+                     color: const Color(0xFF1F6193),
+                     borderRadius: BorderRadius.circular(5)
+                   ),
+                   child: Row(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                     crossAxisAlignment: CrossAxisAlignment.center,
                      children: [
-                      Booktile(),
-                      Booktile(),
-                      Booktile(),
-                      Booktile(),
-                      Booktile(),
-                      Booktile(),
-                      Booktile(),
-                      Booktile(),
-                      Booktile(),
-                      Booktile(),
-                      Booktile(),
-                      Booktile(),
-                      Booktile(),
-                      Booktile(),
-
+                       Expanded(
+                         child: Container(
+                           alignment: const Alignment(-1, 0),
+                           padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8),
+                           width: Get.width,
+                           decoration: BoxDecoration(
+                               color: Colors.white,
+                               borderRadius: BorderRadius.circular(7)
+                           ),
+                           child: Text("Find books by course or title",style: Stylings.bodyMediumLarger.copyWith(color: Stylings.bgColor.withOpacity(0.6)),),
+                         ),
+                       ),
+                       const SizedBox(width: 10,),
+                       const Icon(Icons.search,color: Colors.white,size: 25,)
                      ],
                    ),
                  ),
-               ),
-
-
-
-
-
-             ],
+                 ///recents
+                 // Padding(padding: const EdgeInsets.symmetric(vertical: 15,),
+                 // child: Text("Recently searched",style: Stylings.bodyMediumLargest.copyWith(color: const Color(0xFFD9D9D9)),),),
+                 // SingleChildScrollView(
+                 //   scrollDirection: Axis.horizontal,
+                 //   physics: const BouncingScrollPhysics(),
+                 //   child: Row(
+                 //     children: [
+                 //       GestureDetector(
+                 //           onTap: (){
+                 //             Clipboard.setData(ClipboardData(text: "${Get.find<AuthController>().userRefreshToken}"));
+                 //           },
+                 //           child: Bookcard()),
+                 //       const Bookcard(),
+                 //       const Bookcard(),
+                 //       const Bookcard(),
+                 //       const Bookcard(),
+                 //       const Bookcard(),
+                 //       const Bookcard(),
+                 //       const Bookcard(),
+                 //       const Bookcard(),
+                 //       const Bookcard(),
+                 //       const Bookcard(),
+                 //       const Bookcard(),
+                 //       const Bookcard(),
+                 //     ],
+                 //   ),
+                 // ),
+             
+             
+                 //tops
+                 Padding(padding: const EdgeInsets.symmetric(vertical: 15,),
+                   child: Text("Top Picks",style: Stylings.bodyMediumLargest.copyWith(color: const Color(0xFFD9D9D9)),),),
+             
+             
+                 Get.find<BooksController>().recBooksLoading.value &&
+                     Get.find<BooksController>().recomendedBooks.isEmpty?
+                 Shimmer.fromColors(
+                     baseColor: Stylings.accentBlue.withOpacity(0.1),
+                     period:Duration(seconds: 5),
+                     highlightColor: Stylings.bgColor.withOpacity(0.3),
+                     child: Column(
+                       children: [
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777,),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6868,),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6788,),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 687,),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 658,),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 658,),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 658,),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 658,),
+                       ],
+                     ),):
+             
+                 Get.find<BooksController>().recBooksLoading.value == false &&
+                     Get.find<BooksController>().recomendedBooks.isEmpty?
+                     Align(
+                       alignment: Alignment(0, 0),
+                       child: Text("Oops! Unable to fetch books from ${Get.find<AuthController>().userData['uniName']} library",style: Stylings.bodyMediumLargest.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.center,)
+                   ):
+             
+                  Column(
+                   mainAxisAlignment: MainAxisAlignment.start,
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     ...Get.find<BooksController>().recomendedBooks.map((b){
+                       final bookName = b.title;
+                       final authorName = b.author;
+                       final bookPrice = b.price;
+                       return Booktile(bookName: bookName, authorName: authorName, bookPrice: bookPrice);
+                     })
+                   ],
+                 )
+             
+             
+             
+             
+             
+             
+             
+             
+               ],
+             ),
            ),
 
 
@@ -272,7 +315,7 @@ class Homepage extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: (){
-                        Get.find<MainController>().onTapNavItem(0);
+                        Get.find<MainController>().onTapNavItem(0,context);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -287,7 +330,7 @@ class Homepage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: (){
-                        Get.find<MainController>().onTapNavItem(1);
+                        Get.find<MainController>().onTapNavItem(1,context);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -302,7 +345,7 @@ class Homepage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: (){
-                        Get.find<MainController>().onTapNavItem(2);
+                        Get.find<MainController>().onTapNavItem(2,context);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -317,7 +360,7 @@ class Homepage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: (){
-                        Get.find<MainController>().onTapNavItem(3);
+                        Get.find<MainController>().onTapNavItem(3,context);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -332,7 +375,7 @@ class Homepage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: (){
-                        Get.find<MainController>().onTapNavItem(4);
+                        Get.find<MainController>().onTapNavItem(4,context);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,

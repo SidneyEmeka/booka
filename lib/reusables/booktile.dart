@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:intl/intl.dart';
 
 import '../stylings.dart';
 
 
 class Booktile extends StatelessWidget {
-  const Booktile({super.key});
+  final String bookName;
+  final String authorName;
+  final int bookPrice;
+  const Booktile({super.key, required this.bookName, required this.authorName, required this.bookPrice});
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +41,12 @@ class Booktile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Gross Anatomy of Upper Limb",style: Stylings.displaySemiBoldSmall,softWrap: false,overflow: TextOverflow.ellipsis,),
+              Text(bookName,style: Stylings.displaySemiBoldSmall,softWrap: false,overflow: TextOverflow.ellipsis,),
               const SizedBox(height: 1,),
-              Text("Vishram E.",style: Stylings.bodyRegularSmallest,),
+              Text(authorName,style: Stylings.bodyRegularSmallest,),
               const SizedBox(height: 1,),
-              Text("₦5,700",style: Stylings.displaySemiBoldSmall,),
+              Text(
+              "₦${NumberFormat.decimalPattern('en').format(bookPrice)}",style: Stylings.displaySemiBoldSmall,),
             ],
           ))
         ],
