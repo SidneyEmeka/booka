@@ -88,21 +88,21 @@ class Book {
   });
 
   factory Book.fromJson(Map<String, dynamic> json) => Book(
-    id: json["id"],
-    title: json["title"],
-    author: json["author"],
-    edition: json["edition"],
-    courseCode: json["courseCode"],
-    level: json["level"],
-    price: json["price"],
-    quantity: json["quantity"],
-    lowAlert: json["lowAlert"],
-    orderCount: json["orderCount"],
-    imageUrl: json["imageUrl"],
-    imageFileId: json["imageFileId"],
-    status: json["status"],
-    universityId: json["universityId"],
-    adminId: json["adminId"],
+    id: json["id"]??"",
+    title: json["title"]??"",
+    author: json["author"]??"",
+    edition: json["edition"]??"",
+    courseCode: json["courseCode"]??"",
+    level: json["level"]??"",
+    price: json["price"]??0,
+    quantity: json["quantity"]??0,
+    lowAlert: json["lowAlert"]??0,
+    orderCount: json["orderCount"]??0,
+    imageUrl: json["imageUrl"]??"",
+    imageFileId: json["imageFileId"]??"",
+    status: json["status"]??"",
+    universityId: json["universityId"]??"",
+    adminId: json["adminId"]??"",
     createdAt: DateTime.parse(json["createdAt"]),
     updatedAt: DateTime.parse(json["updatedAt"]),
   );
@@ -127,3 +127,6 @@ class Book {
     "updatedAt": updatedAt.toIso8601String(),
   };
 }
+
+
+

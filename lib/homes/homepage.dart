@@ -157,256 +157,262 @@ class _HomepageState extends State<Homepage> {
       //     ),
       //   ),
       // ),
-      body: Obx(()=> Container(
-        width: Get.width ,
-        height: Get.height,
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        child: Stack(
-          children: [
-           LiquidPullToRefresh(
-             onRefresh: ()async{
-             await  Get.find<BooksController>().getRecomendedBooks();
-             },
-             color: Stylings.bgColor,
-             backgroundColor: Stylings.accentBlue,
-             animSpeedFactor: 2,
-             height: 120,
-             springAnimationDurationInMilliseconds: 500,
-             showChildOpacityTransition: false,
-             child: ListView(
-               children: [
-                 SizedBox(height: Get.height*0.01),
-                 Text("Welcome, ${Get.find<AuthController>().userData["name"]}",style: Stylings.displaySemiBoldMedium.copyWith(color: Stylings.accentBlue),),
-                 SizedBox(height: Get.height*0.02),
-                 Container(
-                   width: Get.width,
-                   padding: const EdgeInsets.symmetric(horizontal: 4,vertical: 3),
-                   decoration: BoxDecoration(
-                     color: const Color(0xFF1F6193),
-                     borderRadius: BorderRadius.circular(5)
-                   ),
-                   child: Row(
-                     mainAxisAlignment: MainAxisAlignment.start,
-                     crossAxisAlignment: CrossAxisAlignment.center,
-                     children: [
-                       Expanded(
-                         child: Container(
-                           alignment: const Alignment(-1, 0),
-                           padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8),
-                           width: Get.width,
-                           decoration: BoxDecoration(
-                               color: Colors.white,
-                               borderRadius: BorderRadius.circular(7)
-                           ),
-                           child: Text("Find books by course or title",style: Stylings.bodyMediumLarger.copyWith(color: Stylings.bgColor.withOpacity(0.6)),),
-                         ),
-                       ),
-                       const SizedBox(width: 10,),
-                       const Icon(Icons.search,color: Colors.white,size: 25,)
-                     ],
-                   ),
-                 ),
-                 ///recents
-                 // Padding(padding: const EdgeInsets.symmetric(vertical: 15,),
-                 // child: Text("Recently searched",style: Stylings.bodyMediumLargest.copyWith(color: const Color(0xFFD9D9D9)),),),
-                 // SingleChildScrollView(
-                 //   scrollDirection: Axis.horizontal,
-                 //   physics: const BouncingScrollPhysics(),
-                 //   child: Row(
-                 //     children: [
-                 //       GestureDetector(
-                 //           onTap: (){
-                 //             Clipboard.setData(ClipboardData(text: "${Get.find<AuthController>().userRefreshToken}"));
-                 //           },
-                 //           child: Bookcard()),
-                 //       const Bookcard(),
-                 //       const Bookcard(),
-                 //       const Bookcard(),
-                 //       const Bookcard(),
-                 //       const Bookcard(),
-                 //       const Bookcard(),
-                 //       const Bookcard(),
-                 //       const Bookcard(),
-                 //       const Bookcard(),
-                 //       const Bookcard(),
-                 //       const Bookcard(),
-                 //       const Bookcard(),
-                 //     ],
-                 //   ),
-                 // ),
-             
-             
-                 //tops
-                 Padding(padding: const EdgeInsets.symmetric(vertical: 15,),
-                   child: Text("Top Picks",style: Stylings.bodyMediumLargest.copyWith(color: const Color(0xFFD9D9D9)),),),
-             
-             
-                 Get.find<BooksController>().recBooksLoading.value &&
-                     Get.find<BooksController>().recomendedBooks.isEmpty?
-                 Shimmer.fromColors(
-                     baseColor: Stylings.accentBlue.withOpacity(0.1),
-                     period:const Duration(seconds: 5),
-                     highlightColor: Stylings.bgColor.withOpacity(0.3),
-                     child: const Column(
+      body: Obx(()=> LiquidPullToRefresh(
+        onRefresh: ()async{
+          await  Get.find<BooksController>().getRecomendedBooks();
+        },
+        color: Stylings.bgColor,
+        backgroundColor: Stylings.accentBlue,
+        animSpeedFactor: 2,
+        height: 120,
+        springAnimationDurationInMilliseconds: 500,
+        showChildOpacityTransition: false,
+        child: Container(
+          width: Get.width ,
+          height: Get.height,
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+             Expanded(
+               child: ListView(
+                 children: [
+                   SizedBox(height: Get.height*0.01),
+                   Text("Welcome, ${Get.find<AuthController>().userData["name"]}",style: Stylings.displaySemiBoldMedium.copyWith(color: Stylings.accentBlue),),
+                   SizedBox(height: Get.height*0.02),
+                   Container(
+                     width: Get.width,
+                     padding: const EdgeInsets.symmetric(horizontal: 4,vertical: 3),
+                     decoration: BoxDecoration(
+                       color: const Color(0xFF1F6193),
+                       borderRadius: BorderRadius.circular(5)
+                     ),
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                       crossAxisAlignment: CrossAxisAlignment.center,
                        children: [
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-
+                         Expanded(
+                           child: Container(
+                             alignment: const Alignment(-1, 0),
+                             padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8),
+                             width: Get.width,
+                             decoration: BoxDecoration(
+                                 color: Colors.white,
+                                 borderRadius: BorderRadius.circular(7)
+                             ),
+                             child: Text("Find books by course or title",style: Stylings.bodyMediumLarger.copyWith(color: Stylings.bgColor.withOpacity(0.6)),),
+                           ),
+                         ),
+                         const SizedBox(width: 10,),
+                         const Icon(Icons.search,color: Colors.white,size: 25,)
                        ],
-                     ),):
-             
-                 Get.find<BooksController>().recBooksLoading.value == false &&
-                     Get.find<BooksController>().recomendedBooks.isEmpty?
-                     Align(
-                       alignment: const Alignment(0, 0),
-                       child: Text("Oops! Unable to fetch books from ${Get.find<AuthController>().userData['uniName']}'s library",style: Stylings.bodyMediumLargest.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.center,)
-                   ):
-             
-                  Column(
-                   mainAxisAlignment: MainAxisAlignment.start,
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   children: [
-                     ...Get.find<BooksController>().recomendedBooks.map((b){
-                       final bookName = b.title;
-                       final authorName = b.author;
-                       final bookPrice = b.price;
-                       final bookCover = b.imageUrl;
-                       return Booktile(bookName: bookName, authorName: authorName, bookPrice: bookPrice, bookCover: bookCover,);
-                     })
-                   ],
-                 )
-             
-             
-             
-             
-             
-             
-             
-             
-               ],
+                     ),
+                   ),
+                   ///recents
+                   // Padding(padding: const EdgeInsets.symmetric(vertical: 15,),
+                   // child: Text("Recently searched",style: Stylings.bodyMediumLargest.copyWith(color: const Color(0xFFD9D9D9)),),),
+                   // SingleChildScrollView(
+                   //   scrollDirection: Axis.horizontal,
+                   //   physics: const BouncingScrollPhysics(),
+                   //   child: Row(
+                   //     children: [
+                   //       GestureDetector(
+                   //           onTap: (){
+                   //             Clipboard.setData(ClipboardData(text: "${Get.find<AuthController>().userRefreshToken}"));
+                   //           },
+                   //           child: Bookcard()),
+                   //       const Bookcard(),
+                   //       const Bookcard(),
+                   //       const Bookcard(),
+                   //       const Bookcard(),
+                   //       const Bookcard(),
+                   //       const Bookcard(),
+                   //       const Bookcard(),
+                   //       const Bookcard(),
+                   //       const Bookcard(),
+                   //       const Bookcard(),
+                   //       const Bookcard(),
+                   //       const Bookcard(),
+                   //     ],
+                   //   ),
+                   // ),
+               
+               
+                   //tops
+                   Padding(padding: const EdgeInsets.symmetric(vertical: 15,),
+                     child: GestureDetector(
+                         onTap: (){
+                           print( Get.find<BooksController>().recomendedBooks);
+                         },
+                         child: Text("Top Picks",style: Stylings.bodyMediumLargest.copyWith(color: const Color(0xFFD9D9D9)),)),),
+               
+               
+                   Get.find<BooksController>().recBooksLoading.value &&
+                       Get.find<BooksController>().recomendedBooks.isEmpty?
+                   Shimmer.fromColors(
+                       baseColor: Stylings.accentBlue.withOpacity(0.1),
+                       period:const Duration(seconds: 5),
+                       highlightColor: Stylings.bgColor.withOpacity(0.3),
+                       child: const Column(
+                         children: [
+                           Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                           Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                           Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                           Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                           Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                           Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                           Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                           Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                           Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                           Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                           Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                       
+                         ],
+                       ),):
+               
+                   Get.find<BooksController>().recBooksLoading.value == false &&
+                       Get.find<BooksController>().recomendedBooks.isEmpty?
+                       Align(
+                         alignment: const Alignment(0, 0),
+                         child: Text("Oops! Unable to fetch books from ${Get.find<AuthController>().userData['uniName']}'s library",style: Stylings.bodyMediumLargest.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.center,)
+                     ):
+               
+                    Column(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       ...Get.find<BooksController>().recomendedBooks.map((b){
+                         final bookName = b.title;
+                         final authorName = b.author;
+                         final bookPrice = b.price;
+                         final bookCover = b.imageUrl;
+                         return Booktile(bookName: bookName, authorName: authorName, bookPrice: bookPrice, bookCover: bookCover,);
+                       })
+                     ],
+                   )
+               
+               
+               
+               
+               
+               
+               
+               
+                 ],
+               ),
              ),
-           ),
-
-
-
-
-
-            ///Bottom NavBar
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Container(
-               margin: const EdgeInsets.only(bottom: 30),
-                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Stylings.bgColor,
-                    border: Border.all(
-                        color: const Color(0xFF407BFF),
-                        width: 2
-                    )
+        
+        
+        
+        
+        
+              ///Bottom NavBar
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Container(
+                 margin: const EdgeInsets.only(bottom: 30),
+                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Stylings.bgColor,
+                      border: Border.all(
+                          color: const Color(0xFF407BFF),
+                          width: 2
+                      )
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          Get.find<MainController>().onTapNavItem(0,context);
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(FluentIcons.home_28_regular,size: 25,color: Get.find<MainController>().navIndex.value==0?Stylings.accentBlue:Colors.white,),
+                           const SizedBox(height: 5,),
+                            Text("Home",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==0?Stylings.accentBlue:Colors.white,),)
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                          Get.find<MainController>().onTapNavItem(1,context);
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(FluentIcons.heart_28_regular,size: 25,color: Get.find<MainController>().navIndex.value==1?Stylings.accentBlue:Colors.white,),
+                            const SizedBox(height: 5,),
+                            Text("Wishlist",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==1?Stylings.accentBlue:Colors.white,),)
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                          Get.find<MainController>().onTapNavItem(2,context);
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(FluentIcons.search_28_regular,size: 25,color: Get.find<MainController>().navIndex.value==2?Stylings.accentBlue:Colors.white,),
+                            const SizedBox(height: 5,),
+                            Text("Search",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==2?Stylings.accentBlue:Colors.white,),)
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                          Get.find<MainController>().onTapNavItem(3,context);
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(FluentIcons.cart_24_regular,size: 27,color: Get.find<MainController>().navIndex.value==3?Stylings.accentBlue:Colors.white,),
+                            const SizedBox(height: 5,),
+                            Text("Cart",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==3?Stylings.accentBlue:Colors.white,),)
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                          Get.find<MainController>().onTapNavItem(4,context);
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Get.find<MainController>().navIndex.value==4?SizedBox(
+                              height: 23,
+                              width: 23,
+                              child: Image.asset("assets/images/avatar.png"),
+                            ):SizedBox(
+                              height: 25,
+                              width: 25,
+                              child: Image.asset("assets/images/avatarnav.png"),
+                            ),
+                          //  Icon(FluentIcons.person_28_regular,size: 25,color: Get.find<MainControoller>().navIndex.value==4?Stylings.accentBlue:Colors.white,),
+                            const SizedBox(height: 5,),
+                            Text("Profile",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==4?Stylings.accentBlue:Colors.white,),)
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: (){
-                        Get.find<MainController>().onTapNavItem(0,context);
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(FluentIcons.home_28_regular,size: 25,color: Get.find<MainController>().navIndex.value==0?Stylings.accentBlue:Colors.white,),
-                         const SizedBox(height: 5,),
-                          Text("Home",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==0?Stylings.accentBlue:Colors.white,),)
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: (){
-                        Get.find<MainController>().onTapNavItem(1,context);
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(FluentIcons.heart_28_regular,size: 25,color: Get.find<MainController>().navIndex.value==1?Stylings.accentBlue:Colors.white,),
-                          const SizedBox(height: 5,),
-                          Text("Wishlist",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==1?Stylings.accentBlue:Colors.white,),)
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: (){
-                        Get.find<MainController>().onTapNavItem(2,context);
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(FluentIcons.search_28_regular,size: 25,color: Get.find<MainController>().navIndex.value==2?Stylings.accentBlue:Colors.white,),
-                          const SizedBox(height: 5,),
-                          Text("Search",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==2?Stylings.accentBlue:Colors.white,),)
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: (){
-                        Get.find<MainController>().onTapNavItem(3,context);
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(FluentIcons.cart_24_regular,size: 27,color: Get.find<MainController>().navIndex.value==3?Stylings.accentBlue:Colors.white,),
-                          const SizedBox(height: 5,),
-                          Text("Cart",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==3?Stylings.accentBlue:Colors.white,),)
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: (){
-                        Get.find<MainController>().onTapNavItem(4,context);
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Get.find<MainController>().navIndex.value==4?SizedBox(
-                            height: 23,
-                            width: 23,
-                            child: Image.asset("assets/images/avatar.png"),
-                          ):SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: Image.asset("assets/images/avatarnav.png"),
-                          ),
-                        //  Icon(FluentIcons.person_28_regular,size: 25,color: Get.find<MainControoller>().navIndex.value==4?Stylings.accentBlue:Colors.white,),
-                          const SizedBox(height: 5,),
-                          Text("Profile",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==4?Stylings.accentBlue:Colors.white,),)
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),)
     );

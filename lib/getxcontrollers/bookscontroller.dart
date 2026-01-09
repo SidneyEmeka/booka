@@ -19,27 +19,31 @@ var recBooksLoading = false.obs;
  Future getRecomendedBooks() async{
  if(recBooksLoading.value){return;}
  recBooksLoading.value=true;
+
   await BooksApiClient().makeGetRequest("get-recommended-books").then((b){
   var decodedResponse = jsonDecode(b);
   if (decodedResponse['success']==true){
-  //print(decodedResponse);
-  final recommendedBooksModel = recommendedBooksModelFromJson(b);
-  recomendedBooks.value = recommendedBooksModel.data.books;
+  // print("trueeee $b");
+   final recommendedBooksModel = recommendedBooksModelFromJson(b);
+  //print("Raw ${recommendedBooksModel}");
+  // print(recommendedBooksModel.data.books);
+   recomendedBooks.value = recommendedBooksModel.data.books;
   recBooksLoading.value=false;
   }
   else if (decodedResponse['success']==false){
+   print("false");
   recBooksLoading.value=false;
-  print(decodedResponse);
+  print("elif ${decodedResponse}");
   //Get.snackbar("Oops!", "${decodedResponse['message']}",duration: const Duration(seconds: 5),colorText: Colors.white,);
   }
   else{
   recBooksLoading.value=false;
-  print(decodedResponse);
+  print("el ${decodedResponse}");
   // Get.snackbar("Oops!", "We are experiencing a downtime. Please try again",duration: const Duration(seconds: 5),colorText: Colors.white,);
   }
   }).catchError((e){
   recBooksLoading.value=false;
-
+print("catch ${e}");
 
   // Get.snackbar("Something Happened", "$e",duration: const Duration(seconds: 5),
    //     colorText: Colors.white);
@@ -64,7 +68,7 @@ var limit = 20;
 var allBooks = <Item>[].obs;
 var allbooksLoading = false.obs;
 
-Future getAllBooks({required bool refresh}) async{
+Future getAllBooks({required bool refresh,String endpoint = "get-books-user?q="}) async{
  if (refresh) {
   currentPage.value = 1;
   allBooks.clear();
@@ -72,10 +76,10 @@ Future getAllBooks({required bool refresh}) async{
  }
  if(allbooksLoading.value){return;}
  allbooksLoading.value=true;
- await BooksApiClient().makeGetRequest("get-books-user").then((b){
+ await BooksApiClient().makeGetRequest(endpoint).then((b){
   var decodedResponse = jsonDecode(b);
   if (decodedResponse['success']==true){
-   //print(decodedResponse);
+   //print(allBooksModelFromJson(b));
    final allBooksModel = allBooksModelFromJson(b);
    allBooks.value = allBooksModel.data.items;
    totalPages.value = allBooksModel.data.totalPages;
@@ -96,8 +100,7 @@ Future getAllBooks({required bool refresh}) async{
   }
  }).catchError((e){
   allbooksLoading.value=false;
-
-
+  print("catch $e");
   // Get.snackbar("Something Happened", "$e",duration: const Duration(seconds: 5),
   //     colorText: Colors.white);
  });
@@ -107,35 +110,36 @@ Future getAllBooks({required bool refresh}) async{
 
 //Search
  var searchQuery = ''.obs;
-var searchResults = <SearchedItem>[].obs;
- searchBooks(String authorOrTitle) async {
-  if(allbooksLoading.value){return;}
-  allbooksLoading.value=true;
-  await BooksApiClient().makeGetRequest("get-books-user?q=$authorOrTitle").then((b){
-   var decodedResponse = jsonDecode(b);
-   if (decodedResponse['success']==true){
-    //print(decodedResponse);
-    final searchedBooksModel = searchedBooksModelFromJson(b);
-    searchResults.value = searchedBooksModel.data.items;
-    stotalPages.value = searchedBooksModel.data.totalPages;
-    stotalItems.value = searchedBooksModel.data.total;
-    shasMoreData.value = scurrentPage.value < stotalPages.value;
-
-    allbooksLoading.value=false;
-   }
-   else if (decodedResponse['success']==false){
-    allbooksLoading.value=false;
-    print(decodedResponse);
-    searchResults.clear();   }
-   else{
-    allbooksLoading.value=false;
-    print(decodedResponse);
-    searchResults.clear();
-   }
-  }).catchError((e){
-   allbooksLoading.value=false;
-   searchResults.clear();
-  });
+//var searchResults = <SearchedItem>[].obs;
+ searchBooks() async {
+  getAllBooks(refresh: true, endpoint: "get-books-user?q=$searchQuery");
+  // if(allbooksLoading.value){return;}
+  // allbooksLoading.value=true;
+  // await BooksApiClient().makeGetRequest("get-books-user?q=$authorOrTitle").then((b){
+  //  var decodedResponse = jsonDecode(b);
+  //  if (decodedResponse['success']==true){
+  //   //print(decodedResponse);
+  //   final searchedBooksModel = searchedBooksModelFromJson(b);
+  //   allBooks.value = searchedBooksModel.data.items.cast<Item>();
+  //   totalPages.value = searchedBooksModel.data.totalPages;
+  //   totalItems.value = searchedBooksModel.data.total;
+  //   hasMoreData.value = currentPage.value < totalPages.value;
+  //
+  //   allbooksLoading.value=false;
+  //  }
+  //  else if (decodedResponse['success']==false){
+  //   allbooksLoading.value=false;
+  //   print(decodedResponse);
+  //   allBooks.clear();   }
+  //  else{
+  //   allbooksLoading.value=false;
+  //   print(decodedResponse);
+  //   allBooks.clear();
+  //  }
+  // }).catchError((e){
+  //  allbooksLoading.value=false;
+  //  allBooks.clear();
+  // });
  }
 
 
@@ -143,15 +147,12 @@ var searchResults = <SearchedItem>[].obs;
 }
 
 
-
-https://api.example.com/books?page=2&limit=10&search=harry
-↑
-Query parameters start here
-
-
 //
-//
-//
+// https://api.example.com/books?page=2&limit=10&search=harry
+// ↑
+// Query parameters start here
+
+
 // class BookController extends GetxController {
 //
 //  var errorMessage = ''.obs;

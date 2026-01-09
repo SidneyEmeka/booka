@@ -1,4 +1,5 @@
 import 'package:booka/getxcontrollers/authcontroller.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -177,114 +178,246 @@ class _SearchpageState extends State<Searchpage> {
                 height: 120,
                 springAnimationDurationInMilliseconds: 500,
                 showChildOpacityTransition: false,
-                child: ListView(
+                child: Column(
                   children: [
-                    SizedBox(height: Get.height*0.01),
-                    ///search
-                    Container(
-                      width: Get.width,
-                      padding: const EdgeInsets.symmetric(horizontal: 4,vertical: 3),
-                      decoration: BoxDecoration(
-                          color: const Color(0xFF1F6193),
-                          borderRadius: BorderRadius.circular(10)
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                    Expanded(
+                      child: ListView(
                         children: [
-                          Expanded(
-                            child: TextFormField(
-                              onChanged: (p) {
-                                Get.find<BooksController>().searchQuery.value = p.trim();
-                              },
-                              style: Stylings.bodyRegularMedium.copyWith(
-                                  color: const Color(0xFF222222)),
-                              keyboardType: TextInputType.emailAddress,
-                              cursorColor: Colors.grey.shade500,
-                              cursorHeight: 15,
-                              cursorWidth: 1,
-                              decoration:  InputDecoration(
-                                hintText: "Find books by title or author",
-                                hintStyle: Stylings.bodyMediumLarger.copyWith(color: Stylings.bgColor.withOpacity(0.6))
-                              ),
+                          SizedBox(height: Get.height*0.01),
+                          ///search
+                          Container(
+                            width: Get.width,
+                            padding: const EdgeInsets.symmetric(horizontal: 4,vertical: 3),
+                            decoration: BoxDecoration(
+                                color: const Color(0xFF1F6193),
+                                borderRadius: BorderRadius.circular(10)
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                    onChanged: (p) {
+                                      Get.find<BooksController>().searchQuery.value = p.trim();
+                                    },
+                                    style: Stylings.bodyRegularMedium.copyWith(
+                                        color: const Color(0xFF222222)),
+                                    keyboardType: TextInputType.emailAddress,
+                                    cursorColor: Colors.grey.shade500,
+                                    cursorHeight: 15,
+                                    cursorWidth: 1,
+                                    decoration:  InputDecoration(
+                                      hintText: "Find books by title or author",
+                                      hintStyle: Stylings.bodyMediumLarger.copyWith(color: Stylings.bgColor.withOpacity(0.6))
+                                    ),
+                                  ),
+                                ),
+                               // const SizedBox(width: 10,),
+                                Get.find<BooksController>().searchQuery.value.isNotEmpty?
+                                IconButton(onPressed: (){
+                                  Get.find<BooksController>().searchBooks();
+                                },
+                                    icon: const Icon(Icons.search,color: Colors.white,size: 25,)):
+                                IconButton(onPressed: (){
+
+                                },
+                                    icon: const Icon(Icons.search,color: Colors.grey,size: 25,))
+                              ],
                             ),
                           ),
-                          const SizedBox(width: 10,),
-                          const Icon(Icons.search,color: Colors.white,size: 25,)
+
+
+                          Get.find<BooksController>().allbooksLoading.value &&
+                              Get.find<BooksController>().allBooks.isEmpty?
+                          Shimmer.fromColors(
+                            baseColor: Stylings.accentBlue.withOpacity(0.1),
+                            period:const Duration(seconds: 5),
+                            highlightColor: Stylings.bgColor.withOpacity(0.3),
+                            child: const Column(
+                              children: [
+                                Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                                Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                                Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                                Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                                Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                                Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                                Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                                Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                                Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                                Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                                Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+
+                              ],
+                            ),):
+
+                          Get.find<BooksController>().allbooksLoading.value == false &&
+                              Get.find<BooksController>().allBooks.isEmpty?
+
+                          Align(
+                              alignment: const Alignment(0, 0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 30,),
+                                  Get.find<BooksController>().searchQuery.value.isEmpty?
+                                  Text("We couldn’t fetch books from ${Get.find<AuthController>().userData["uniName"]}'s library. Sorry about that!",style: Stylings.bodyMediumLarger.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.start,):
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text("We couldn’t find ${Get.find<BooksController>().searchQuery.value}'s match in our store. Sorry about that, you should;",style: Stylings.bodyMediumLarger.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.start,),
+                                      const SizedBox(height: 10,),
+
+                                      Text("1. Double check the spelling",style: Stylings.bodyRegularMedium.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.start,),
+                                      const SizedBox(height: 3,),
+                                      Text("2. Try searching by title or author's name",style: Stylings.bodyRegularMedium.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.start,),
+                                      const SizedBox(height: 3,),
+                                      Text("3. If you've tried all these and still can't find the book, kindly contact our support",style: Stylings.bodyRegularMedium.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.start,),
+
+
+                                    ],
+                                  )
+                                    ],
+                              )
+                          ):
+
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 10,),
+                              Text("Total: ${Get.find<BooksController>().totalItems} Books",style: Stylings.bodyMediumLarger),
+                              const SizedBox(height: 20,),
+                              ...Get.find<BooksController>().allBooks.map((b){
+                                final bookName = b.title;
+                                final authorName = b.author;
+                                final bookPrice = b.price;
+                                final bookCover = b.imageUrl;
+                                return Booktile(bookName: bookName, authorName: authorName, bookPrice: bookPrice, bookCover: bookCover,);
+                              })
+                            ],
+                          )
+
+
+
+
+
+
+
+
                         ],
                       ),
+
+
                     ),
-
-
-                    Get.find<BooksController>().allbooksLoading.value &&
-                        Get.find<BooksController>().allBooks.isEmpty?
-                    Shimmer.fromColors(
-                      baseColor: Stylings.accentBlue.withOpacity(0.1),
-                      period:const Duration(seconds: 5),
-                      highlightColor: Stylings.bgColor.withOpacity(0.3),
-                      child: const Column(
-                        children: [
-                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
-
-                        ],
-                      ),):
-
-                    Get.find<BooksController>().allbooksLoading.value == false &&
-                        Get.find<BooksController>().allBooks.isEmpty?
-
+                    ///Bottom NavBar
                     Align(
-                        alignment: const Alignment(0, 0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      alignment: Alignment.bottomRight,
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 30),
+                        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Stylings.bgColor,
+                            border: Border.all(
+                                color: const Color(0xFF407BFF),
+                                width: 2
+                            )
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const SizedBox(height: 30,),
-                            Get.find<BooksController>().searchQuery.value.isEmpty?
-                            Text("We couldn’t fetch books from ${Get.find<AuthController>().userData["uniName"]}'s library. Sorry about that, you should;",style: Stylings.bodyMediumLarger.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.start,):
-                            Text("We couldn’t find ‘[Book Title/Author].isempty?:book title’ in our store. Sorry about that, you should;",style: Stylings.bodyMediumLarger.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.start,),
-                            const SizedBox(height: 10,),
-
-                            Text("1. Double check the spelling",style: Stylings.bodyRegularMedium.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.start,),
-                            const SizedBox(height: 3,),
-                            Text("2. Try searching by title or author's name",style: Stylings.bodyRegularMedium.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.start,),
-                            const SizedBox(height: 3,),
-                            Text("3. If you've tried all these and still can't find the book, kindly contact our support",style: Stylings.bodyRegularMedium.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.start,),
+                            GestureDetector(
+                              onTap: (){
+                                Get.find<MainController>().onTapNavItem(0,context);
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(FluentIcons.home_28_regular,size: 25,color: Get.find<MainController>().navIndex.value==0?Stylings.accentBlue:Colors.white,),
+                                  const SizedBox(height: 5,),
+                                  Text("Home",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==0?Stylings.accentBlue:Colors.white,),)
+                                ],
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: (){
+                                Get.find<MainController>().onTapNavItem(1,context);
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(FluentIcons.heart_28_regular,size: 25,color: Get.find<MainController>().navIndex.value==1?Stylings.accentBlue:Colors.white,),
+                                  const SizedBox(height: 5,),
+                                  Text("Wishlist",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==1?Stylings.accentBlue:Colors.white,),)
+                                ],
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: (){
+                                Get.find<MainController>().onTapNavItem(2,context);
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(FluentIcons.search_28_regular,size: 25,color: Get.find<MainController>().navIndex.value==2?Stylings.accentBlue:Colors.white,),
+                                  const SizedBox(height: 5,),
+                                  Text("Search",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==2?Stylings.accentBlue:Colors.white,),)
+                                ],
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: (){
+                                Get.find<MainController>().onTapNavItem(3,context);
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(FluentIcons.cart_24_regular,size: 27,color: Get.find<MainController>().navIndex.value==3?Stylings.accentBlue:Colors.white,),
+                                  const SizedBox(height: 5,),
+                                  Text("Cart",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==3?Stylings.accentBlue:Colors.white,),)
+                                ],
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: (){
+                                Get.find<MainController>().onTapNavItem(4,context);
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Get.find<MainController>().navIndex.value==4?SizedBox(
+                                    height: 23,
+                                    width: 23,
+                                    child: Image.asset("assets/images/avatar.png"),
+                                  ):SizedBox(
+                                    height: 25,
+                                    width: 25,
+                                    child: Image.asset("assets/images/avatarnav.png"),
+                                  ),
+                                  //  Icon(FluentIcons.person_28_regular,size: 25,color: Get.find<MainControoller>().navIndex.value==4?Stylings.accentBlue:Colors.white,),
+                                  const SizedBox(height: 5,),
+                                  Text("Profile",style: Stylings.displayExtraBoldSmall.copyWith(color: Get.find<MainController>().navIndex.value==4?Stylings.accentBlue:Colors.white,),)
+                                ],
+                              ),
+                            ),
                           ],
-                        )
-                    ):
-
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 30,),
-                        ...Get.find<BooksController>().allBooks.map((b){
-                          final bookName = b.title;
-                          final authorName = b.author;
-                          final bookPrice = b.price;
-                          final bookCover = b.imageUrl;
-                          return Booktile(bookName: bookName, authorName: authorName, bookPrice: bookPrice, bookCover: bookCover,);
-                        })
-                      ],
+                        ),
+                      ),
                     )
-
-
-
-
-
-
-
-
                   ],
                 ),
               ),
