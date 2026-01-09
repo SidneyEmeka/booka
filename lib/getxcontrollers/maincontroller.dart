@@ -2,6 +2,7 @@ import 'package:booka/getxcontrollers/authcontroller.dart';
 import 'package:booka/getxcontrollers/bookscontroller.dart';
 import 'package:booka/homes/homepage.dart';
 import 'package:booka/homes/profile/profile.dart';
+import 'package:booka/homes/searchpage.dart';
 import 'package:booka/reusables/loadingpage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,7 @@ class MainController extends GetxController{
     switch (navIndex.value) {
       case 0: return  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Homepage()),(route)=>false);
       case 1: return Get.to(()=>Loadingpage(doingWhat: '1 page',));
-      case 2: return Get.to(()=>Loadingpage(doingWhat: '2 page',));
+      case 2: return Get.to(()=>Searchpage());
       case 3: return Get.to(()=>Loadingpage(doingWhat: '3 page',));
       case 4: return Get.to(()=>Profile());
 

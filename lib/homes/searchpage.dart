@@ -1,0 +1,296 @@
+import 'package:booka/getxcontrollers/authcontroller.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../checkout/cart.dart';
+import '../getxcontrollers/bookscontroller.dart';
+import '../getxcontrollers/bookscontroller.dart';
+import '../getxcontrollers/bookscontroller.dart';
+import '../getxcontrollers/maincontroller.dart';
+import '../reusables/booktile.dart';
+import '../stylings.dart';
+
+
+class Searchpage extends StatefulWidget {
+  const Searchpage({super.key});
+
+  @override
+  State<Searchpage> createState() => _SearchpageState();
+}
+
+class _SearchpageState extends State<Searchpage> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<BooksController>().getAllBooks(refresh: false);
+    });
+
+    super.initState();
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          leadingWidth: Get.width*0.5,
+          leading:  Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              InkWell(
+                borderRadius: BorderRadius.circular(20),
+                splashColor: Stylings.transparent,
+                onTap: (){
+                },
+                child: Padding(
+                    padding: const EdgeInsets.only(left: 12),
+                    child: Icon(Icons.arrow_back_ios_new_sharp,color: Stylings.accentBlue,size: 23,)),
+              ),
+              // Builder(
+              //     builder: (context)=> GestureDetector(
+              //         onTap: (){
+              //           Scaffold.of(context).openDrawer();
+              //         },
+              //         child: Icon(Icons.menu,color: Stylings.accentBlue,size: 23,)),
+              // ),
+              Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
+                  height: 20,
+                  child: Image.asset("assets/images/logospelled.png")),
+            ],
+          ),
+          actions: [
+            InkWell(
+              borderRadius: BorderRadius.circular(20),
+              splashColor: Stylings.transparent,
+              onTap: (){
+                Get.to(()=>const Cart());
+              },
+              child: Icon(Icons.shopping_cart_outlined,color: Stylings.accentBlue,size: 23,),
+            ),
+            InkWell(
+              borderRadius: BorderRadius.circular(20),
+              splashColor: Stylings.transparent,
+              onTap: (){
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Icon(Icons.person,color: Stylings.accentBlue,size: 23,),
+              ),
+            ),
+          ],
+        ),
+        // drawer: Drawer(
+        //   backgroundColor: Stylings.bgColor,
+        //   width: Get.width,
+        //   child: SafeArea(
+        //     child: Container(
+        //       width: Get.width,
+        //       height: Get.height,
+        //       padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 30),
+        //       child: ListView(
+        //         children: [
+        //           Row(
+        //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //             crossAxisAlignment: CrossAxisAlignment.center,
+        //             children: [
+        //               Text("Welcome Isidore",style: Stylings.displayExtraBoldMedium.copyWith(color: Stylings.accentBlue),),
+        //               Icon(Icons.notifications,size: 25,color: Stylings.accentBlue,),
+        //             ],
+        //           ),
+        //
+        //           Container(
+        //             width: Get.width,
+        //             padding: const EdgeInsets.symmetric(horizontal: 4,vertical: 3),
+        //             margin: const EdgeInsets.symmetric(vertical: 15),
+        //             decoration: BoxDecoration(
+        //                 color: const Color(0xFF1F6193),
+        //                 borderRadius: BorderRadius.circular(5)
+        //             ),
+        //             child: Row(
+        //               mainAxisAlignment: MainAxisAlignment.start,
+        //               crossAxisAlignment: CrossAxisAlignment.center,
+        //               children: [
+        //                 Expanded(
+        //                   child: Container(
+        //                     alignment: const Alignment(-1, 0),
+        //                     padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8),
+        //                     width: Get.width,
+        //                     decoration: BoxDecoration(
+        //                         color: Colors.white,
+        //                         borderRadius: BorderRadius.circular(7)
+        //                     ),
+        //                     child: Text("Find books by course or title",style: Stylings.bodyMediumLarger.copyWith(color: Stylings.bgColor.withOpacity(0.6)),),
+        //                   ),
+        //                 ),
+        //                 const SizedBox(width: 10,),
+        //                 const Icon(Icons.search,color: Colors.white,size: 25,)
+        //               ],
+        //             ),
+        //           ),
+        //
+        //           SizedBox(
+        //             height: Get.height,
+        //             child:GridView.count(
+        //               crossAxisCount: 2,
+        //               crossAxisSpacing: 15,
+        //               children: [
+        //                 const Menucard(title: "Browse Books", icon: Icons.search, color: Color(0xFF287CF6)),
+        //                 const Menucard(title: "My Orders", icon: Icons.shopping_cart_outlined, color: Color(0xFF287CF6)),
+        //                 const Menucard(title: "Time Slots", icon: Icons.access_time, color: Color(0xFF47C8E5)),
+        //                 const Menucard(title: "Pick-Up/Delivery", icon: Icons.delivery_dining_outlined, color: Color(0xFF47C8E5)),
+        //                 const Menucard(title: "Loyalty & Referrals", icon: Icons.star, color: Color(0xFF47C8E5)),
+        //                 GestureDetector(
+        //                     onTap: (){
+        //                       Get.to(()=>const Profile());
+        //                     },
+        //                     child: const Menucard(title: "Profile", icon: Icons.person, color: Color(0xFF287CF6))),
+        //               ],
+        //             )
+        //           )
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        body: PopScope(
+    canPop: false,
+    onPopInvoked: (didPop){
+    if(!didPop){
+    Get.find<MainController>().onTapNavItem(0,context);}},
+          child: Obx(()=> GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: Container(
+              width: Get.width ,
+              height: Get.height,
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              child: LiquidPullToRefresh(
+                onRefresh: ()async{
+                  await  Get.find<BooksController>().getAllBooks(refresh: true);
+                },
+                color: Stylings.bgColor,
+                backgroundColor: Stylings.accentBlue,
+                animSpeedFactor: 2,
+                height: 120,
+                springAnimationDurationInMilliseconds: 500,
+                showChildOpacityTransition: false,
+                child: ListView(
+                  children: [
+                    SizedBox(height: Get.height*0.01),
+                    ///search
+                    Container(
+                      width: Get.width,
+                      padding: const EdgeInsets.symmetric(horizontal: 4,vertical: 3),
+                      decoration: BoxDecoration(
+                          color: const Color(0xFF1F6193),
+                          borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              onChanged: (p) {
+                                Get.find<BooksController>().searchQuery.value = p.trim();
+                              },
+                              style: Stylings.bodyRegularMedium.copyWith(
+                                  color: const Color(0xFF222222)),
+                              keyboardType: TextInputType.emailAddress,
+                              cursorColor: Colors.grey.shade500,
+                              cursorHeight: 15,
+                              cursorWidth: 1,
+                              decoration:  InputDecoration(
+                                hintText: "Find books by title or author",
+                                hintStyle: Stylings.bodyMediumLarger.copyWith(color: Stylings.bgColor.withOpacity(0.6))
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 10,),
+                          const Icon(Icons.search,color: Colors.white,size: 25,)
+                        ],
+                      ),
+                    ),
+
+
+                    Get.find<BooksController>().allbooksLoading.value &&
+                        Get.find<BooksController>().allBooks.isEmpty?
+                    Shimmer.fromColors(
+                      baseColor: Stylings.accentBlue.withOpacity(0.1),
+                      period:const Duration(seconds: 5),
+                      highlightColor: Stylings.bgColor.withOpacity(0.3),
+                      child: const Column(
+                        children: [
+                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                          Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+
+                        ],
+                      ),):
+
+                    Get.find<BooksController>().allbooksLoading.value == false &&
+                        Get.find<BooksController>().allBooks.isEmpty?
+
+                    Align(
+                        alignment: const Alignment(0, 0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 30,),
+                            Get.find<BooksController>().searchQuery.value.isEmpty?
+                            Text("We couldn’t fetch books from ${Get.find<AuthController>().userData["uniName"]}'s library. Sorry about that, you should;",style: Stylings.bodyMediumLarger.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.start,):
+                            Text("We couldn’t find ‘[Book Title/Author].isempty?:book title’ in our store. Sorry about that, you should;",style: Stylings.bodyMediumLarger.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.start,),
+                            const SizedBox(height: 10,),
+
+                            Text("1. Double check the spelling",style: Stylings.bodyRegularMedium.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.start,),
+                            const SizedBox(height: 3,),
+                            Text("2. Try searching by title or author's name",style: Stylings.bodyRegularMedium.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.start,),
+                            const SizedBox(height: 3,),
+                            Text("3. If you've tried all these and still can't find the book, kindly contact our support",style: Stylings.bodyRegularMedium.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.start,),
+                          ],
+                        )
+                    ):
+
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 30,),
+                        ...Get.find<BooksController>().allBooks.map((b){
+                          final bookName = b.title;
+                          final authorName = b.author;
+                          final bookPrice = b.price;
+                          final bookCover = b.imageUrl;
+                          return Booktile(bookName: bookName, authorName: authorName, bookPrice: bookPrice, bookCover: bookCover,);
+                        })
+                      ],
+                    )
+
+
+
+
+
+
+
+
+                  ],
+                ),
+              ),
+            ),
+          ),),
+        )
+    );
+  }
+}

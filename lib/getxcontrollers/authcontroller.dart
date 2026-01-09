@@ -55,7 +55,8 @@ class AuthController extends GetxController {
     }).catchError((e){
     //  print("catch $e}");
       Get.off(()=>const SignUpPage());
-      Get.snackbar("Something Happened", "$e",duration: const Duration(seconds: 5),
+      Get.snackbar("Something Happened", e.toString().contains("^")?"A network error occurred, please try again":"$e",duration: const Duration(seconds: 5),
+
       colorText: Colors.white,);
     });
   }
@@ -83,7 +84,7 @@ class AuthController extends GetxController {
       }
     }).catchError((e){
       Get.off(()=>const SignUpPage());
-      Get.snackbar("Something Happened", "$e",duration: const Duration(seconds: 5),
+      Get.snackbar("Something Happened", e.toString().contains("^")?"A network error occurred, please try again":"$e",duration: const Duration(seconds: 5),
           colorText: Colors.white);
     });
   }
@@ -135,7 +136,7 @@ class AuthController extends GetxController {
         Get.snackbar("Oops!", "We are experiencing a downtime. Please try again",duration: const Duration(seconds: 5),colorText: Colors.white,);
         }
       }).catchError((e){
-        Get.snackbar("Something Happened", "$e",
+        Get.snackbar("Something Happened", e.toString().contains("^")?"A network error occurred, please try again":"$e",
             colorText: Colors.white,duration: const Duration(seconds: 5));
         Get.offAll(()=>const SignUpPage());
       });
@@ -204,7 +205,7 @@ class AuthController extends GetxController {
       }
     }).catchError((e){
       print(e);
-      Get.snackbar("Something Happened", "$e",
+      Get.snackbar("Something Happened", e.toString().contains("^")?"A network error occurred, please try again":"$e",
           colorText: Colors.white,duration: const Duration(seconds: 5));
       Get.offAll(()=>const LogIn());
     });

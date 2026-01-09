@@ -30,7 +30,9 @@ class UserApiClient {
         headers: headers,
         body: jsonBody,
       );
+      print(response.body);
       return response.body;
+
     } catch (e) {
       print(e);
       throw "Its our fault but please try again";
@@ -600,8 +602,7 @@ class BooksApiClient {
   Future makeGetRequest(String endPoint) async {
     try {
       // Make the GET request
-      final response =
-      await http.get(Uri.parse("$userBaseUrl/$endPoint"), headers: {
+      final response = await http.get(Uri.parse("$userBaseUrl/$endPoint"), headers: {
         'Authorization': 'Bearer ${Get.find<AuthController>().userAccessToken}'
       });
       return response.body;

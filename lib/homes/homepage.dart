@@ -68,7 +68,7 @@ class _HomepageState extends State<Homepage> {
             borderRadius: BorderRadius.circular(20),
             splashColor: Stylings.transparent,
             onTap: (){
-              Get.to(()=>Cart());
+              Get.to(()=>const Cart());
             },
             child: Icon(Icons.shopping_cart_outlined,color: Stylings.accentBlue,size: 23,),
           ),
@@ -169,13 +169,13 @@ class _HomepageState extends State<Homepage> {
              },
              color: Stylings.bgColor,
              backgroundColor: Stylings.accentBlue,
-             animSpeedFactor: 1,
+             animSpeedFactor: 2,
              height: 120,
-             springAnimationDurationInMilliseconds: 700,
+             springAnimationDurationInMilliseconds: 500,
              showChildOpacityTransition: false,
              child: ListView(
                children: [
-                 SizedBox(height: Get.height*0.03),
+                 SizedBox(height: Get.height*0.01),
                  Text("Welcome, ${Get.find<AuthController>().userData["name"]}",style: Stylings.displaySemiBoldMedium.copyWith(color: Stylings.accentBlue),),
                  SizedBox(height: Get.height*0.02),
                  Container(
@@ -245,26 +245,30 @@ class _HomepageState extends State<Homepage> {
                      Get.find<BooksController>().recomendedBooks.isEmpty?
                  Shimmer.fromColors(
                      baseColor: Stylings.accentBlue.withOpacity(0.1),
-                     period:Duration(seconds: 5),
+                     period:const Duration(seconds: 5),
                      highlightColor: Stylings.bgColor.withOpacity(0.3),
-                     child: Column(
+                     child: const Column(
                        children: [
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777,),
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6868,),
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6788,),
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 687,),
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 658,),
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 658,),
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 658,),
-                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 658,),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+                         Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+
                        ],
                      ),):
              
                  Get.find<BooksController>().recBooksLoading.value == false &&
                      Get.find<BooksController>().recomendedBooks.isEmpty?
                      Align(
-                       alignment: Alignment(0, 0),
-                       child: Text("Oops! Unable to fetch books from ${Get.find<AuthController>().userData['uniName']} library",style: Stylings.bodyMediumLargest.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.center,)
+                       alignment: const Alignment(0, 0),
+                       child: Text("Oops! Unable to fetch books from ${Get.find<AuthController>().userData['uniName']}'s library",style: Stylings.bodyMediumLargest.copyWith(color: const Color(0xFFD9D9D9)),textAlign: TextAlign.center,)
                    ):
              
                   Column(
@@ -275,7 +279,8 @@ class _HomepageState extends State<Homepage> {
                        final bookName = b.title;
                        final authorName = b.author;
                        final bookPrice = b.price;
-                       return Booktile(bookName: bookName, authorName: authorName, bookPrice: bookPrice);
+                       final bookCover = b.imageUrl;
+                       return Booktile(bookName: bookName, authorName: authorName, bookPrice: bookPrice, bookCover: bookCover,);
                      })
                    ],
                  )
