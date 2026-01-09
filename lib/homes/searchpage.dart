@@ -23,13 +23,25 @@ class Searchpage extends StatefulWidget {
 }
 
 class _SearchpageState extends State<Searchpage> {
+  late ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Get.find<BooksController>().getAllBooks(refresh: false);
     });
 
+    _scrollController.addListener(_onScroll);
+
+
     super.initState();
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      Get.find<BooksController>().loadMore();
+    }
   }
   
   @override
@@ -182,6 +194,8 @@ class _SearchpageState extends State<Searchpage> {
                   children: [
                     Expanded(
                       child: ListView(
+                        controller: _scrollController,
+                        physics: const AlwaysScrollableScrollPhysics(),
                         children: [
                           SizedBox(height: Get.height*0.01),
                           ///search
@@ -288,7 +302,7 @@ class _SearchpageState extends State<Searchpage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const SizedBox(height: 10,),
-                              Text("Total: ${Get.find<BooksController>().totalItems} Books",style: Stylings.bodyMediumLarger),
+                              Text("Total: ${Get.find<BooksController>().allBooks.length}/${Get.find<BooksController>().totalItems} Books",style: Stylings.bodyMediumLarger),
                               const SizedBox(height: 20,),
                               ...Get.find<BooksController>().allBooks.map((b){
                                 final bookName = b.title;
@@ -296,7 +310,20 @@ class _SearchpageState extends State<Searchpage> {
                                 final bookPrice = b.price;
                                 final bookCover = b.imageUrl;
                                 return Booktile(bookName: bookName, authorName: authorName, bookPrice: bookPrice, bookCover: bookCover,);
-                              })
+                              }),
+                              Get.find<BooksController>().isLoadingMore.value?
+                              Shimmer.fromColors(
+                                baseColor: Stylings.accentBlue.withOpacity(0.1),
+                                period:const Duration(seconds: 5),
+                                direction: ShimmerDirection.btt,
+                                highlightColor: Stylings.bgColor.withOpacity(0.3),
+                                child: const Column(
+                                  children: [
+                                    Booktile(bookName: 'moock', authorName: "mock", bookPrice: 6777, bookCover: 'usduwouwowouuwg',),
+
+                                  ],
+                                ),):
+                                  const SizedBox.shrink()
                             ],
                           )
 

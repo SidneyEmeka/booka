@@ -52,12 +52,7 @@ print("catch ${e}");
 
 
 
-
  ///All books by Pagination
-
-
-var isLoadingMore = false.obs;
-
 // Paginated
 var currentPage = 1.obs;
 var totalPages = 0.obs;
@@ -110,160 +105,57 @@ Future getAllBooks({required bool refresh,String endpoint = "get-books-user?q="}
 
 //Search
  var searchQuery = ''.obs;
-//var searchResults = <SearchedItem>[].obs;
- searchBooks() async {
-  getAllBooks(refresh: true, endpoint: "get-books-user?q=$searchQuery");
-  // if(allbooksLoading.value){return;}
-  // allbooksLoading.value=true;
-  // await BooksApiClient().makeGetRequest("get-books-user?q=$authorOrTitle").then((b){
-  //  var decodedResponse = jsonDecode(b);
-  //  if (decodedResponse['success']==true){
-  //   //print(decodedResponse);
-  //   final searchedBooksModel = searchedBooksModelFromJson(b);
-  //   allBooks.value = searchedBooksModel.data.items.cast<Item>();
-  //   totalPages.value = searchedBooksModel.data.totalPages;
-  //   totalItems.value = searchedBooksModel.data.total;
-  //   hasMoreData.value = currentPage.value < totalPages.value;
-  //
-  //   allbooksLoading.value=false;
-  //  }
-  //  else if (decodedResponse['success']==false){
-  //   allbooksLoading.value=false;
-  //   print(decodedResponse);
-  //   allBooks.clear();   }
-  //  else{
-  //   allbooksLoading.value=false;
-  //   print(decodedResponse);
-  //   allBooks.clear();
-  //  }
-  // }).catchError((e){
-  //  allbooksLoading.value=false;
-  //  allBooks.clear();
-  // });
+ searchBooks()  {
+  getAllBooks(refresh: true, endpoint: "get-books-user?q=${searchQuery.value}");
  }
+
+
+
+ 
+
+ var isLoadingMore = false.obs;
+ //Load More books
+loadMore() async{
+ if (isLoadingMore.value || !hasMoreData.value || allbooksLoading.value) {
+  return;
+ }
+ isLoadingMore.value = true;
+ currentPage.value++;
+
+ await BooksApiClient().makeGetRequest("get-books-user?q=${searchQuery.value}&page=${currentPage.value}").then((b){
+  var decodedResponse = jsonDecode(b);
+  if (decodedResponse['success']==true){
+   //print(allBooksModelFromJson(b));
+   final allBooksModel = allBooksModelFromJson(b);
+   allBooks.addAll(allBooksModel.data.items);
+   totalPages.value = allBooksModel.data.totalPages;
+   totalItems.value = allBooksModel.data.total;
+   hasMoreData.value = currentPage.value < totalPages.value;
+
+   isLoadingMore.value=false;
+  }
+  else if (decodedResponse['success']==false){
+   currentPage.value--;
+   isLoadingMore.value=false;
+   print(decodedResponse);
+   //Get.snackbar("Oops!", "${decodedResponse['message']}",duration: const Duration(seconds: 5),colorText: Colors.white,);
+  }
+  else{
+   isLoadingMore.value=false;
+   currentPage.value--;
+   print(decodedResponse);
+   // Get.snackbar("Oops!", "We are experiencing a downtime. Please try again",duration: const Duration(seconds: 5),colorText: Colors.white,);
+  }
+ }).catchError((e){
+  currentPage.value--;
+  isLoadingMore.value=false;
+  print("catch $e");
+ });
+}
+
+
 
 
 //END
 }
 
-
-//
-// https://api.example.com/books?page=2&limit=10&search=harry
-// ↑
-// Query parameters start here
-
-
-// class BookController extends GetxController {
-//
-//  var errorMessage = ''.obs;
-//  // Search
-//  var searchQuery = ''.obs;
-//
-//  @override
-//  void onInit() {
-//   super.onInit();
-//   fetchBooks();
-//
-//   // Debounce search
-//   debounce(
-//    searchQuery,
-//        (_) => searchBooks(),
-//    time: Duration(milliseconds: 500),
-//   );
-//  }
-//
-//  // Initial fetch
-//  Future<void> fetchBooks({bool refresh = false}) async {
-//   if (refresh) {
-//    currentPage.value = 1;
-//    books.clear();
-//    hasMoreData.value = true;
-//    errorMessage.value = '';
-//   }
-//
-//   if (isLoading.value) return;
-//
-//   isLoading.value = true;
-//   errorMessage.value = '';
-//
-//   try {
-//    final response = await _apiService.getBooks(
-//     page: currentPage.value,
-//     limit: limit,
-//     search: searchQuery.value.isEmpty ? null : searchQuery.value,
-//    );
-//
-//    books.value = response.books;
-//    totalPages.value = response.totalPages;
-//    totalItems.value = response.totalItems;
-//
-//    // Check if there's more data
-//    hasMoreData.value = currentPage.value < totalPages.value;
-//
-//   } catch (e) {
-//    errorMessage.value = 'Failed to load books: $e';
-//    Get.snackbar(
-//     'Error',
-//     errorMessage.value,
-//     snackPosition: SnackPosition.BOTTOM,
-//    );
-//   } finally {
-//    isLoading.value = false;
-//   }
-//  }
-//
-//  // Load more (infinite scroll)
-//  Future<void> loadMore() async {
-//   // Prevent multiple simultaneous requests
-//   if (isLoadingMore.value || !hasMoreData.value || isLoading.value) {
-//    return;
-//   }
-//
-//   isLoadingMore.value = true;
-//   currentPage.value++;
-//
-//   try {
-//    final response = await _apiService.getBooks(
-//     page: currentPage.value,
-//     limit: limit,
-//     search: searchQuery.value.isEmpty ? null : searchQuery.value,
-//    );
-//
-//    // Add new books to existing list
-//    books.addAll(response.books);
-//    totalPages.value = response.totalPages;
-//    totalItems.value = response.totalItems;
-//
-//    // Check if there's more data
-//    hasMoreData.value = currentPage.value < totalPages.value;
-//
-//    if (!hasMoreData.value) {
-//     Get.snackbar(
-//      'End of List',
-//      'No more books to load',
-//      snackPosition: SnackPosition.BOTTOM,
-//      duration: Duration(seconds: 2),
-//     );
-//    }
-//
-//   } catch (e) {
-//    currentPage.value--; // Revert on error
-//    errorMessage.value = 'Failed to load more: $e';
-//    Get.snackbar(
-//     'Error',
-//     errorMessage.value,
-//     snackPosition: SnackPosition.BOTTOM,
-//    );
-//   } finally {
-//    isLoadingMore.value = false;
-//   }
-//  }
-//
-//  // Search
-//  void searchBooks() {
-//   currentPage.value = 1;
-//   fetchBooks(refresh: true);
-//  }
-//
-//
-// }
