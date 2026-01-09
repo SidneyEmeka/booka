@@ -1,3 +1,4 @@
+import 'package:booka/checkout/cart.dart';
 import 'package:booka/getxcontrollers/authcontroller.dart';
 import 'package:booka/getxcontrollers/bookscontroller.dart';
 import 'package:booka/homes/homepage.dart';
@@ -70,7 +71,7 @@ class MainController extends GetxController{
       case 0: return  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Homepage()),(route)=>false);
       case 1: return Get.to(()=>Loadingpage(doingWhat: '1 page',));
       case 2: return Get.to(()=>Searchpage());
-      case 3: return Get.to(()=>Loadingpage(doingWhat: '3 page',));
+      case 3: return Get.to(()=>Cart());
       case 4: return Get.to(()=>Profile());
 
     }

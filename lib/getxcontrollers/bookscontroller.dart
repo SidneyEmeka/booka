@@ -67,6 +67,7 @@ Future getAllBooks({required bool refresh,String endpoint = "get-books-user?q="}
  if (refresh) {
   currentPage.value = 1;
   allBooks.clear();
+  searchQuery.value="";
   hasMoreData.value = true;
  }
  if(allbooksLoading.value){return;}
